@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Super Hard</title>
+        <link rel="stylesheet" href="style.css" />
+        <script>
+            function answer(selection) {
+                const correct = document.getElementById('correct');
+                const incorrect = document.getElementById('incorrect');
+                const wasCorrect = selection === 'Indonesia';
+
+                correct.style = wasCorrect ? 'display: inherit' : 'display: none';
+                incorrect.style = !wasCorrect ? 'display: inherit' : 'display: none';
+            }
+        </script>
+    </head>
+    <body class="gamePage">
+        <h1>Super Hard!!!!!</h1>
+        <img width="400" src="assets/flags/id.webp" />
+        <div class="answers">
+            <button onclick="answer('Monaco')">Monaco</button>
+            <button onclick="answer('Indonesia')">Indonesia</button>
+            <button onclick="answer('Poland')">Poland</button>
+            <button onclick="answer('Chad')">Chad</button>
+            <button onclick="answer('Romania')">Romania</button>
+            <button onclick="answer('Dominica')">Dominica</button>
+        </div>
+        <div style="display: none" id="correct">
+            How did you get it correct!?
+            <a href="index.html">Back to menu</a>
+        </div>
+        <div style="display: none" id="incorrect">
+            Incorrect
+            <a href="index.html">Back to menu</a>
+        </div>
+    </body>
+</html>

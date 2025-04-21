@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Hard</title>
+        <link rel="stylesheet" href="style.css" />
+        <script>
+            function answer(selection) {
+                const correct = document.getElementById('correct');
+                const incorrect = document.getElementById('incorrect');
+                const wasCorrect = selection === 'Mauritius';
+
+                correct.style = wasCorrect ? 'display: inherit' : 'display: none';
+                incorrect.style = !wasCorrect ? 'display: inherit' : 'display: none';
+            }
+        </script>
+    </head>
+    <body class="gamePage">
+        <h1>Hard</h1>
+        <img width="400" src="assets/flags/mu.webp" />
+        <div class="answers">
+            <button onclick="answer('Ghana')">Ghana</button>
+            <button onclick="answer('Uganda')">Uganda</button>
+            <button onclick="answer('Kenya')">Kenya</button>
+            <button onclick="answer('Rwanda')">Rwanda</button>
+            <button onclick="answer('Brunei')">Brunei</button>
+            <button onclick="answer('Mauritius')">Mauritius</button>
+        </div>
+        <div style="display: none" id="correct">
+            Correct!
+            <a href="index.html">Back to menu</a>
+        </div>
+        <div style="display: none" id="incorrect">
+            Incorrect
+            <a href="index.html">Back to menu</a>
+        </div>
+    </body>
+</html>
