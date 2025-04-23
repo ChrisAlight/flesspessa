@@ -3,14 +3,62 @@
         <title>Easy</title>
         <link rel="stylesheet" href="style.css" />
         <script>
-            function answer(selection) {
-                const correct = document.getElementById('correct');
-                const incorrect = document.getElementById('incorrect');
-                const wasCorrect = selection === 'USA';
+            const countries = [
+                { name: 'USA', code: 'us' },
+                { name: 'Canada', code: 'ca' },
+                { name: 'China', code: 'cn' },
+                { name: 'Jamaica', code: 'jm' },
+                { name: 'UK', code: 'gb' },
+                { name: 'Ireland', code: 'ie' }
+            ];
 
-                correct.style = wasCorrect ? 'display: inherit' : 'display: none';
-                incorrect.style = !wasCorrect ? 'display: inherit' : 'display: none';
+            function getRandomCountry() {
+                const randomIndex = Math.floor(Math.random() * countries.length);
+                return countries.splice(randomIndex, 1)[0];
             }
+
+            function setRandomFlag() {
+                const randomCountry = getRandomCountry();
+                const flagImage = document.querySelector('img');
+                flagImage.src = `assets/flags/${randomCountry.code}.webp`;
+                correctAnswer = randomCountry;
+            }
+            function answer(selection) {
+                const result = document.getElementById('result');
+                const resultMessage = document.getElementById('resultMessage');
+                const resultLink = document.getElementById('resultLink');
+                const wasCorrect = selection === correctAnswer.name;
+
+                result.style = 'display: inherit';
+
+                if (wasCorrect) {
+                    correctAnswerCount++;
+                    resultMessage.innerHTML = `Correct! The flag is for ${correctAnswer.name}.`;
+                    resultLink.innerHTML = correctAnswerCount < 3 ? 'Next Question' : 'try normal';
+                    resultLink.onclick = function() {
+                        if (correctAnswerCount < 3) {
+                            setRandomFlag();
+                            result.style.display = 'none';
+                        } else {
+                            window.location.href = 'normal.html';
+                        }
+                    };
+                } else {
+                    resultMessage.innerHTML = 'Incorrect!';
+                    resultLink.innerHTML = 'Try Again';
+                    resultLink.onclick = function() {
+                        result.style.display = 'none';
+                    };
+                }
+
+            }
+
+            window.onload = function() {
+                setRandomFlag();
+            };
+
+            let correctAnswer;
+            let correctAnswerCount = 0;
         </script>
     </head>
     <body class="gamePage">
@@ -24,13 +72,9 @@
             <button onclick="answer('UK')">UK</button>
             <button onclick="answer('Ireland')">Ireland</button>
         </div>
-        <div style="display: none" id="correct">
-            Correct!
-            <a href="normal.html">Try normal</a>
-        </div>
-        <div style="display: none" id="incorrect">
-            Incorrect
-            <a href="index.html">Back to menu</a>
+        <div style="display: none" id="result">
+            <div id="resultMessage" ></div>
+            <a href="#" id="resultLink"></a>
         </div>
     </body>
 </html>
