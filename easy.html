@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Easy</title>
+        <script src="app.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script>
             const countries = [
@@ -12,74 +13,22 @@
                 { name: 'Ireland', code: 'ie' }
             ];
 
-            function getRandomCountry() {
-                const randomIndex = Math.floor(Math.random() * countries.length);
-                return countries.splice(randomIndex, 1)[0];
-            }
-
-            function setRandomFlag() {
-                const randomCountry = getRandomCountry();
-                const flagImage = document.querySelector('img');
-                flagImage.src = `assets/flags/${randomCountry.code}.webp`;
-                correctAnswer = randomCountry;
-            }
-
-            function answer(selection) {
-                if (hasAnswered) {
-                    return;
-                }
-                hasAnswered = true;
-
-                const result = document.getElementById('result');
-                const resultMessage = document.getElementById('resultMessage');
-                const resultLink = document.getElementById('resultLink');
-                const wasCorrect = selection === correctAnswer.name;
-
-                result.style = 'display: inherit';
-
-                if (wasCorrect) {
-                    correctAnswerCount++;
-                    resultMessage.innerHTML = `Correct! The flag is for ${correctAnswer.name}.`;
-                    resultLink.innerHTML = correctAnswerCount < 3 ? 'Next Question' : 'try normal';
-                    resultLink.onclick = function() {
-                        if (correctAnswerCount < 3) {
-                            setRandomFlag();
-                            result.style.display = 'none';
-                        } else {
-                            window.location.href = 'normal.html';
-                        }
-                        hasAnswered = false;
-                    };
-                } else {
-                    resultMessage.innerHTML = 'Incorrect!';
-                    resultLink.innerHTML = 'Try Again';
-                    resultLink.onclick = function() {
-                        result.style.display = 'none';
-                        hasAnswered = false;
-                    };
-                }
-
-            }
-
+            let app
             window.onload = function() {
-                setRandomFlag();
+                app = new App(countries);
             };
-
-            let hasAnswered = false;
-            let correctAnswer;
-            let correctAnswerCount = 0;
         </script>
     </head>
     <body class="gamePage">
         <h1>Easy</h1>
-        <img width="400" src="assets/flags/us.webp" />
+        <img width="400" src="" />
         <div class="answers">
-            <button onclick="answer('Canada')">Canada</button>
-            <button onclick="answer('USA')">USA</button>
-            <button onclick="answer('China')">China</button>
-            <button onclick="answer('Jamaica')">Jamaica</button>
-            <button onclick="answer('UK')">UK</button>
-            <button onclick="answer('Ireland')">Ireland</button>
+            <button onclick="app.answer('Canada')">Canada</button>
+            <button onclick="app.answer('USA')">USA</button>
+            <button onclick="app.answer('China')">China</button>
+            <button onclick="app.answer('Jamaica')">Jamaica</button>
+            <button onclick="app.answer('UK')">UK</button>
+            <button onclick="app.answer('Ireland')">Ireland</button>
         </div>
         <div style="display: none" id="result">
             <div id="resultMessage"></div>
