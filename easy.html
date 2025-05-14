@@ -23,7 +23,13 @@
                 flagImage.src = `assets/flags/${randomCountry.code}.webp`;
                 correctAnswer = randomCountry;
             }
+
             function answer(selection) {
+                if (hasAnswered) {
+                    return;
+                }
+                hasAnswered = true;
+
                 const result = document.getElementById('result');
                 const resultMessage = document.getElementById('resultMessage');
                 const resultLink = document.getElementById('resultLink');
@@ -42,12 +48,14 @@
                         } else {
                             window.location.href = 'normal.html';
                         }
+                        hasAnswered = false;
                     };
                 } else {
                     resultMessage.innerHTML = 'Incorrect!';
                     resultLink.innerHTML = 'Try Again';
                     resultLink.onclick = function() {
                         result.style.display = 'none';
+                        hasAnswered = false;
                     };
                 }
 
@@ -57,6 +65,7 @@
                 setRandomFlag();
             };
 
+            let hasAnswered = false;
             let correctAnswer;
             let correctAnswerCount = 0;
         </script>
@@ -73,7 +82,7 @@
             <button onclick="answer('Ireland')">Ireland</button>
         </div>
         <div style="display: none" id="result">
-            <div id="resultMessage" ></div>
+            <div id="resultMessage"></div>
             <a href="#" id="resultLink"></a>
         </div>
     </body>
