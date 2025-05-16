@@ -1,14 +1,29 @@
 
 class App {
     countries;
+    nextDifficulty;
 
     hasAnswered = false;
     correctAnswer;
     correctAnswerCount = 0;
 
-    constructor(countries) {
+    constructor(countries, nextDifficulty) {
         this.countries = countries;
+        this.nextDifficulty = nextDifficulty;
+        this.generateAnswerButtons();
         this.setRandomFlag();
+    }
+
+    generateAnswerButtons() {
+        const answerButtonContainer = document.getElementById('answerButtons');
+        answerButtonContainer.innerHTML = '';
+
+        for (const country of this.countries) {
+            const answerButton = document.createElement('button');
+            answerButton.innerHTML = country.name;
+            answerButton.onclick = () => this.answer(country.name);
+            answerButtonContainer.appendChild(answerButton);
+        }
     }
 
     getRandomCountry() {
@@ -39,13 +54,13 @@ class App {
         if (wasCorrect) {
             this.correctAnswerCount++;
             resultMessage.innerHTML = `Correct! The flag is for ${this.correctAnswer.name}.`;
-            resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : 'try normal';
+            resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : this.nextDifficulty ? `try ${this.nextDifficulty}` : 'back to menu';
             resultLink.onclick = () => {
                 if (this.correctAnswerCount < 3) {
                     this.setRandomFlag();
                     result.style.display = 'none';
                 } else {
-                    window.location.href = 'normal.html';
+                    window.location.href = `${this.nextDifficulty ?? 'index'}.html`;
                 }
                 this.hasAnswered = false;
             };

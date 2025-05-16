@@ -15,21 +15,14 @@
 
             let app
             window.onload = function() {
-                app = new App(countries);
+                app = new App(countries, 'normal');
             };
         </script>
     </head>
     <body class="gamePage">
         <h1>Easy</h1>
         <img width="400" src="" />
-        <div class="answers">
-            <button onclick="app.answer('Canada')">Canada</button>
-            <button onclick="app.answer('USA')">USA</button>
-            <button onclick="app.answer('China')">China</button>
-            <button onclick="app.answer('Jamaica')">Jamaica</button>
-            <button onclick="app.answer('UK')">UK</button>
-            <button onclick="app.answer('Ireland')">Ireland</button>
-        </div>
+        <div id="answerButtons" class="answers"></div>
         <div style="display: none" id="result">
             <div id="resultMessage"></div>
             <a href="#" id="resultLink"></a>

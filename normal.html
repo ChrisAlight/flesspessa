@@ -1,36 +1,31 @@
 <html>
     <head>
         <title>Normal</title>
+        <script src="app.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script>
-            function answer(selection) {
-                const correct = document.getElementById('correct');
-                const incorrect = document.getElementById('incorrect');
-                const wasCorrect = selection === 'Philippines';
+            const countries = [
+                { name: 'Serbia', code: 'rs' },
+                { name: 'Sweden', code: 'se' },
+                { name: 'Philippines', code: 'ph' },
+                { name: 'Netherlands', code: 'nl' },
+                { name: 'Bahamas', code: 'bs' },
+                { name: 'Portugal', code: 'pt' }
+            ];
 
-                correct.style = wasCorrect ? 'display: inherit' : 'display: none';
-                incorrect.style = !wasCorrect ? 'display: inherit' : 'display: none';
-            }
+            let app
+            window.onload = function() {
+                app = new App(countries, 'hard');
+            };
         </script>
     </head>
     <body class="gamePage">
         <h1>Normal</h1>
-        <img width="400" src="assets/flags/ph.webp" />
-        <div class="answers">
-            <button onclick="answer('Serbia')">Serbia</button>
-            <button onclick="answer('Sweden')">Sweden</button>
-            <button onclick="answer('Philippines')">Philippines</button>
-            <button onclick="answer('Netherlands')">Netherlands</button>
-            <button onclick="answer('Bahamas')">Bahamas</button>
-            <button onclick="answer('Portugal')">Portugal</button>
-        </div>
-        <div style="display: none" id="correct">
-            Correct!
-            <a href="hard.html">Try hard</a>
-        </div>
-        <div style="display: none" id="incorrect">
-            Incorrect
-            <a href="index.html">Back to menu</a>
+        <img width="400" src="" />
+        <div id="answerButtons" class="answers"></div>
+        <div style="display: none" id="result">
+            <div id="resultMessage"></div>
+            <a href="#" id="resultLink"></a>
         </div>
     </body>
 </html>
