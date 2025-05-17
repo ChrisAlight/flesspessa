@@ -1,36 +1,32 @@
 <html>
     <head>
         <title>Hard</title>
+        <script src="app.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script>
-            function answer(selection) {
-                const correct = document.getElementById('correct');
-                const incorrect = document.getElementById('incorrect');
-                const wasCorrect = selection === 'Mauritius';
+            const countries = [
+                { name: 'Ghana', code: 'gh' },
+                { name: 'Uganda', code: 'ug' },
+                { name: 'Kenya', code: 'ke' },
+                { name: 'Rwanda', code: 'rw' },
+                { name: 'Brunei', code: 'bn' },
+                { name: 'Mauritius', code: 'mu' }
+            ];
 
-                correct.style = wasCorrect ? 'display: inherit' : 'display: none';
-                incorrect.style = !wasCorrect ? 'display: inherit' : 'display: none';
-            }
+            let app
+            window.onload = function() {
+                app = new App(countries);
+            };
         </script>
     </head>
     <body class="gamePage">
+        <a href="index.html" id="homeLink"><img width="75" src="assets/leftArrow.png"></a>
         <h1>Hard</h1>
-        <img width="400" src="assets/flags/mu.webp" />
-        <div class="answers">
-            <button onclick="answer('Ghana')">Ghana</button>
-            <button onclick="answer('Uganda')">Uganda</button>
-            <button onclick="answer('Kenya')">Kenya</button>
-            <button onclick="answer('Rwanda')">Rwanda</button>
-            <button onclick="answer('Brunei')">Brunei</button>
-            <button onclick="answer('Mauritius')">Mauritius</button>
-        </div>
-        <div style="display: none" id="correct">
-            Correct!
-            <a href="index.html">Back to menu</a>
-        </div>
-        <div style="display: none" id="incorrect">
-            Incorrect
-            <a href="index.html">Back to menu</a>
+        <img id="flagImage" width="400" src="" />
+        <div id="answerButtons" class="answers"></div>
+        <div style="display: none" id="result">
+            <div id="resultMessage"></div>
+            <a href="#" id="resultLink"></a>
         </div>
     </body>
 </html>

@@ -1,36 +1,32 @@
 <html>
     <head>
-        <title>Super Hard</title>
+        <title>Super Hard!!!!!</title>
+        <script src="app.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script>
-            function answer(selection) {
-                const correct = document.getElementById('correct');
-                const incorrect = document.getElementById('incorrect');
-                const wasCorrect = selection === 'Indonesia';
+            const countries = [
+                { name: 'Monaco', code: 'mc' },
+                { name: 'Indonesia', code: 'id' },
+                { name: 'Poland', code: 'pl' },
+                { name: 'Chad', code: 'td' },
+                { name: 'Romania', code: 'ro' },
+                { name: 'Dominica', code: 'dm' }
+            ];
 
-                correct.style = wasCorrect ? 'display: inherit' : 'display: none';
-                incorrect.style = !wasCorrect ? 'display: inherit' : 'display: none';
-            }
+            let app
+            window.onload = function() {
+                app = new App(countries);
+            };
         </script>
     </head>
     <body class="gamePage">
+        <a href="index.html" id="homeLink"><img width="75" src="assets/leftArrow.png"></a>
         <h1>Super Hard!!!!!</h1>
-        <img width="400" src="assets/flags/id.webp" />
-        <div class="answers">
-            <button onclick="answer('Monaco')">Monaco</button>
-            <button onclick="answer('Indonesia')">Indonesia</button>
-            <button onclick="answer('Poland')">Poland</button>
-            <button onclick="answer('Chad')">Chad</button>
-            <button onclick="answer('Romania')">Romania</button>
-            <button onclick="answer('Dominica')">Dominica</button>
-        </div>
-        <div style="display: none" id="correct">
-            How did you get it correct!?
-            <a href="index.html">Back to menu</a>
-        </div>
-        <div style="display: none" id="incorrect">
-            Incorrect
-            <a href="index.html">Back to menu</a>
+        <img id="flagImage" width="400" src="" />
+        <div id="answerButtons" class="answers"></div>
+        <div style="display: none" id="result">
+            <div id="resultMessage"></div>
+            <a href="#" id="resultLink"></a>
         </div>
     </body>
 </html>
