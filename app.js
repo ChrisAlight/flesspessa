@@ -33,7 +33,7 @@ class App {
 
     setRandomFlag() {
         const randomCountry = this.getRandomCountry();
-        const flagImage = document.querySelector('img');
+        const flagImage = document.getElementById('flagImage');
         flagImage.src = `assets/flags/${randomCountry.code}.webp`;
         this.correctAnswer = randomCountry;
     }

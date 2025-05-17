@@ -26,3 +26,11 @@ button {
     height: 40px;
     display: inline;
 }
+
+#homeLink {
+    display: block;
+    position: absolute;
+    float: left;
+    top: 10px;
+    left: 10px;
+}
