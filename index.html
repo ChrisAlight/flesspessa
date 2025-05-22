@@ -2,19 +2,30 @@
     <head>
         <title>Flesspessa</title>
         <link rel="stylesheet" href="style.css" />
+        <script src="scripts/storage.js"></script>
         <script>
-function startGame() {
-    // const mode = document.getElementById('mode').getAttribute('value');
-    const difficulty = document.getElementById('difficulty').value;
-    window.location.href = `${difficulty}.html`;
-}
-function addSuperHard() {
-    const difficulty = document.getElementById('difficulty');
-    if (difficulty.length > 3) {
-        return;
-    }
-    difficulty.options.add(new Option('Super Hard', 'superHard'))
-}
+            const storage = new Storage();
+            
+            function startGame() {
+                // const mode = document.getElementById('mode').getAttribute('value');
+                const difficulty = document.getElementById('difficulty').value;
+                storage.setDifficulty(difficulty);
+                window.location.href = `${difficulty}.html`;
+            }
+            function addSuperHard() {
+                const difficulty = document.getElementById('difficulty');
+                if (difficulty.length > 3) {
+                    return;
+                }
+                difficulty.options.add(new Option('Super Hard', 'superHard'))
+            }
+
+            window.onload = function() {
+                const difficulty = storage.getDifficulty();
+                if (difficulty) {
+                    document.getElementById('difficulty').value = difficulty;
+                }
+            };
         </script>
     </head>
     <body>
