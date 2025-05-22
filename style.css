@@ -31,6 +31,31 @@ button {
     display: block;
     position: absolute;
     float: left;
-    top: 10px;
+    bottom: 10px;
     left: 10px;
+}
+
+#coinContainer{
+    display: block;
+    position: absolute;
+    float: right;
+    bottom: 10px;
+    right: 10px;
+}
+img#coin {
+    width: 100px;
+    height: 100px;
+    display:inline;
+     float : right;
+    position: relative;
+    right:-10px;
+}
+#coinText{
+    display:block;
+    float : right;
+    position: relative;
+    font-size: 20pt;
+    border: 2px solid black;
+    width: 200px;
+    top:30px;
 }
