@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Normal</title>
+        <script src="scripts/storage.js"></script>
         <script src="scripts/app.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script>
@@ -13,9 +14,11 @@
                 { name: 'Portugal', code: 'pt' }
             ];
 
-            let app
+            let app;
+            let storage;
             window.onload = function() {
-                app = new App(countries, 'hard');
+                storage = new Storage();
+                app = new App(storage, countries, 'hard');
             };
         </script>
     </head>

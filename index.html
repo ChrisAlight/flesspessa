@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="style.css" />
         <script src="scripts/storage.js"></script>
         <script>
-            const storage = new Storage();
+            let storage;
             
             function startGame() {
                 // const mode = document.getElementById('mode').getAttribute('value');
@@ -22,9 +22,12 @@
             }
 
             window.onload = function() {
+                storage = new Storage();
+
                 if (storage.hasPurchase('superHard')) {
                     addSuperHard();
                 }
+                
                 const difficulty = storage.getDifficulty();
                 if (difficulty) {
                     document.getElementById('difficulty').value = difficulty;

@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Easy</title>
+        <script src="scripts/storage.js"></script>
         <script src="scripts/app.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script>
@@ -13,9 +14,11 @@
                 { name: 'Ireland', code: 'ie' }
             ];
 
-            let app
+            let app;
+            let storage;
             window.onload = function() {
-                app = new App(countries, 'normal');
+                storage = new Storage();
+                app = new App(storage, countries, 'normal');
             };
         </script>
     </head>

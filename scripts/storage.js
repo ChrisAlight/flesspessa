@@ -13,6 +13,7 @@ class Storage {
         if (!localStorage.getItem('difficulty')) {
             localStorage.setItem('difficulty', 'normal');
         }
+        this.updateCoinText();
     }
 
     getCoins() {
@@ -24,6 +25,33 @@ class Storage {
             throw new Error('Invalid coin amount');
         }
         localStorage.setItem('coins', amount.toString());
+        this.updateCoinText();
+    }
+
+    addCoins(amount) {
+        if (typeof amount !== 'number' || amount < 0) {
+            throw new Error('Invalid coin amount');
+        }
+        const currentCoins = this.getCoins();
+        this.setCoins(currentCoins + amount);
+    }
+
+    spendCoins(amount) {
+        if (typeof amount !== 'number' || amount < 0) {
+            throw new Error('Invalid coin amount');
+        }
+        const currentCoins = this.getCoins();
+        if (currentCoins < amount) {
+            throw new Error('Not enough coins');
+        }
+        this.setCoins(currentCoins - amount);
+    }
+
+    updateCoinText() {
+        const coinText = document.getElementById('coinText');
+        if (coinText) {
+            coinText.innerHTML = this.getCoins();
+        }
     }
 
     getPurchases() {

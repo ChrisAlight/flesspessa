@@ -1,5 +1,6 @@
 
 class App {
+    storage;
     countries;
     nextDifficulty;
 
@@ -7,7 +8,8 @@ class App {
     correctAnswer;
     correctAnswerCount = 0;
 
-    constructor(countries, nextDifficulty) {
+    constructor(storage, countries, nextDifficulty) {
+        this.storage = storage;
         this.countries = countries;
         this.nextDifficulty = nextDifficulty;
         this.generateAnswerButtons();
@@ -53,6 +55,7 @@ class App {
 
         if (wasCorrect) {
             this.correctAnswerCount++;
+            this.storage.addCoins(3);
             resultMessage.innerHTML = `Correct! The flag is for ${this.correctAnswer.name}.`;
             resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : this.nextDifficulty ? `try ${this.nextDifficulty}` : 'back to menu';
             resultLink.onclick = () => {
