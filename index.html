@@ -18,9 +18,13 @@
                     return;
                 }
                 difficulty.options.add(new Option('Super Hard', 'superHard'))
+                storage.addPurchase('superHard');
             }
 
             window.onload = function() {
+                if (storage.hasPurchase('superHard')) {
+                    addSuperHard();
+                }
                 const difficulty = storage.getDifficulty();
                 if (difficulty) {
                     document.getElementById('difficulty').value = difficulty;

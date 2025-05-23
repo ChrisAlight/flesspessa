@@ -30,6 +30,11 @@ class Storage {
         return JSON.parse(localStorage.getItem('purchases')) || [];
     }
 
+    hasPurchase(itemId) {
+        const purchases = this.getPurchases();
+        return purchases.includes(itemId);
+    }
+
     addPurchase(itemId) {
         const purchases = this.getPurchases();
         if (!purchases.includes(itemId)) {
