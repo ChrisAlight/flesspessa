@@ -11,7 +11,9 @@ class App {
     constructor(storage, countries, nextDifficulty) {
         this.storage = storage;
         this.countries = countries;
-        this.nextDifficulty = nextDifficulty;
+        if (storage.hasPurchase(nextDifficulty)) {
+            this.nextDifficulty = nextDifficulty;
+        }
         this.generateAnswerButtons();
         this.setRandomFlag();
     }
