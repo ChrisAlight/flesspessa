@@ -60,3 +60,15 @@ img#coin {
     width: 200px;
     top:30px;
 }
+#shopImageButton {
+    float:right;
+    width:180px;
+    height:79px;
+    background-image: url('assets/shop.png');
+    font-size:12pt;
+    background-repeat: no-repeat;
+    text-align: right;
+    position: relative;
+    left: 290px;
+    bottom: 95px;
+}
