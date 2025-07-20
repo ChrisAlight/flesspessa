@@ -24,8 +24,12 @@
                     
                     const buyButton = document.createElement('button');
                     if (storage.hasPurchase(item.name)) {
-                        buyButton.innerText = 'Owned';
-                        buyButton.disabled = true;
+                        if (category === 'backgrounds') {
+                            buyButton.innerText = 'Use';
+                        } else {
+                            buyButton.innerText = 'Owned';
+                            buyButton.disabled = true;
+                        }
                     } else if (storage.getCoins() < item.price) {
                         buyButton.innerText = 'Not enough coins';
                         buyButton.disabled = true;
@@ -33,7 +37,11 @@
                         buyButton.innerText = 'Buy';
                     }
                     buyButton.onclick = function() {
-                        if (storage.getCoins() >= item.price) {
+                        if (storage.hasPurchase(item.name)) {
+                            if (category === 'backgrounds') {
+                                storage.setBackground(item.name);
+                            }
+                        } else if (storage.getCoins() >= item.price) {
                             storage.spendCoins(item.price);
                             storage.addPurchase(item.name);
                             showCategory(category); // Refresh the category view

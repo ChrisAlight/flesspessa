@@ -3,6 +3,7 @@
         <title>Super Hard!!!!!</title>
         <script src="scripts/storage.js"></script>
         <script src="scripts/app.js"></script>
+        <script src="scripts/shopData.js"></script>
         <link rel="stylesheet" href="style.css" />
         <script>
             const countries = [
@@ -18,7 +19,7 @@
             let storage;
             window.onload = function() {
                 storage = new Storage();
-                app = new App(storage, countries);
+                app = new App(storage, shopData, countries);
             };
         </script>
     </head>

@@ -82,4 +82,15 @@ class Storage {
         }
         localStorage.setItem('difficulty', difficulty);
     }
+
+    setBackground(background) {
+        if (typeof background !== 'string') {
+            throw new Error('Invalid background');
+        }
+        localStorage.setItem('background', background);
+    }
+
+    getBackground() {
+        return localStorage.getItem('background');
+    }
 }

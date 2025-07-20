@@ -1,6 +1,7 @@
 
 class App {
     storage;
+    shopData;
     countries;
     nextDifficulty;
 
@@ -8,12 +9,16 @@ class App {
     correctAnswer;
     correctAnswerCount = 0;
 
-    constructor(storage, countries, nextDifficulty) {
+    constructor(storage, shopData, countries, nextDifficulty) {
         this.storage = storage;
+        this.shopData = shopData;
         this.countries = countries;
         if (storage.hasPurchase(nextDifficulty)) {
             this.nextDifficulty = nextDifficulty;
         }
+        const backgroundName = storage.getBackground();
+        const backgroundColor = this.shopData.backgrounds.find(bg => bg.name === backgroundName)?.color || '#ffffff';
+        document.body.style.setProperty('background-color', backgroundColor);
         this.generateAnswerButtons();
         this.setRandomFlag();
     }
