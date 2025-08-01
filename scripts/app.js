@@ -1,5 +1,7 @@
 
 class App {
+    storage;
+    shopData;
     countries;
     nextDifficulty;
 
@@ -7,11 +9,22 @@ class App {
     correctAnswer;
     correctAnswerCount = 0;
 
-    constructor(countries, nextDifficulty) {
+    constructor(storage, shopData, countries, nextDifficulty) {
+        this.storage = storage;
+        this.shopData = shopData;
         this.countries = countries;
-        this.nextDifficulty = nextDifficulty;
+        if (storage.hasPurchase(nextDifficulty)) {
+            this.nextDifficulty = nextDifficulty;
+        }
+        
         this.generateAnswerButtons();
         this.setRandomFlag();
+    }
+
+    static setUpPage(storage, shopData) {
+        const backgroundName = storage.getBackground();
+        const backgroundColor = shopData.backgrounds.find(bg => bg.name === backgroundName)?.color || '#ffffff';
+        document.body.style.setProperty('background-color', backgroundColor);
     }
 
     generateAnswerButtons() {
@@ -53,6 +66,7 @@ class App {
 
         if (wasCorrect) {
             this.correctAnswerCount++;
+            this.storage.addCoins(3);
             resultMessage.innerHTML = `Correct! The flag is for ${this.correctAnswer.name}.`;
             resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : this.nextDifficulty ? `try ${this.nextDifficulty}` : 'back to menu';
             resultLink.onclick = () => {

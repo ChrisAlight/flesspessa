@@ -2,19 +2,45 @@
     <head>
         <title>Flesspessa</title>
         <link rel="stylesheet" href="style.css" />
+        <script src="scripts/storage.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/shopData.js"></script>
         <script>
-function startGame() {
-    // const mode = document.getElementById('mode').getAttribute('value');
-    const difficulty = document.getElementById('difficulty').value;
-    window.location.href = `${difficulty}.html`;
-}
-function addSuperHard() {
-    const difficulty = document.getElementById('difficulty');
-    if (difficulty.length > 3) {
-        return;
-    }
-    difficulty.options.add(new Option('Super Hard', 'superHard'))
-}
+            let storage;
+            
+            function startGame() {
+                // const mode = document.getElementById('mode').getAttribute('value');
+                const difficulty = document.getElementById('difficulty').value;
+                storage.setDifficulty(difficulty);
+                window.location.href = `${difficulty}.html`;
+            }
+            function addSuperHard() {
+                const difficulty = document.getElementById('difficulty');
+                if (difficulty.length > 3) {
+                    return;
+                }
+                difficulty.options.add(new Option('Super Hard', 'superHard'))
+                storage.addPurchase('superHard');
+            }
+            function addPurchasedDifficulties() {
+                const difficultyElement = document.getElementById('difficulty');
+                for (const difficulty of ['normal', 'hard', 'superHard']) {
+                    if (storage.hasPurchase(difficulty)) {
+                        difficultyElement.options.add(new Option(difficulty.charAt(0).toUpperCase() + difficulty.slice(1), difficulty));
+                    }
+                }
+            }
+            window.onload = function() {
+                storage = new Storage();
+
+                App.setUpPage(storage, shopData);
+
+                addPurchasedDifficulties();                
+                const difficulty = storage.getDifficulty();
+                if (difficulty) {
+                    document.getElementById('difficulty').value = difficulty;
+                }
+            };
         </script>
     </head>
     <body>
@@ -27,11 +53,14 @@ function addSuperHard() {
         -->
         <select id="difficulty">
             <option value="easy">Easy</option>
-            <option value="normal">Normal</option>
-            <option value="hard">Hard</option>
         </select>
         <button onclick="startGame()">Start Game</button>
         <button onclick="addSuperHard()">Multi start no</button>
         <button>$10 show extra level</button>
+        <div id="coinContainer">
+            <div id="coinText">0</div>
+            <img id="coin" width="75" src="assets/coin.png">
+            <button id="shopImageButton" onclick="window.location.href='shop.html'">Go to shop</button>
+        </div>
     </body>
 </html>

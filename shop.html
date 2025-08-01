@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>Shop</title>
+        <link rel="stylesheet" href="style.css" />
+        <script src="scripts/storage.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/shopData.js"></script>
+        <script>
+            let storage;
+            
+            function showCategory(category) {
+                const shopContainer = document.getElementById('shopContainer');
+                shopContainer.innerHTML = ''; // Clear previous content
+
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                const categoryTitle = document.createElement('h2');
+                categoryTitle.innerText = category.charAt(0).toUpperCase() + category.slice(1);
+                categoryDiv.appendChild(categoryTitle);
+                
+                for (const item of shopData[category]) {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'item';
+                    itemDiv.innerText = `${item.name} - ${item.price} coins`;
+                    
+                    const buyButton = document.createElement('button');
+                    if (storage.hasPurchase(item.name)) {
+                        if (category === 'backgrounds') {
+                            buyButton.innerText = 'Use';
+                        } else {
+                            buyButton.innerText = 'Owned';
+                            buyButton.disabled = true;
+                        }
+                    } else if (storage.getCoins() < item.price) {
+                        buyButton.innerText = 'Not enough coins';
+                        buyButton.disabled = true;
+                    } else {
+                        buyButton.innerText = 'Buy';
+                    }
+                    buyButton.onclick = function() {
+                        if (storage.hasPurchase(item.name)) {
+                            if (category === 'backgrounds') {
+                                storage.setBackground(item.name);
+                                App.setUpPage(storage, shopData);
+                            }
+                        } else if (storage.getCoins() >= item.price) {
+                            storage.spendCoins(item.price);
+                            storage.addPurchase(item.name);
+                            showCategory(category); // Refresh the category view
+                        } else {
+                            alert('Not enough coins!');
+                        }
+                    };
+                    
+                    itemDiv.appendChild(buyButton);
+                    categoryDiv.appendChild(itemDiv);
+                }
+                
+                shopContainer.appendChild(categoryDiv);
+            }
+            window.onload = function() {
+                storage = new Storage(); 
+
+                App.setUpPage(storage, shopData);
+                
+                const shopNavigation = document.getElementById('shopNavigation');
+                for (const category in shopData) {
+                    const button = document.createElement('button');
+                    button.innerText = category.charAt(0).toUpperCase() + category.slice(1);
+                    button.onclick = function() {
+                        showCategory(category);
+                    };
+                    shopNavigation.appendChild(button);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <a href="index.html" id="homeLink"><img width="75" src="assets/leftArrow.png"></a>
+        <h1>Shop</h1>
+        <div id="shopNavigation"></div>
+        <div id="shopContainer"></div>
+        <div id="coinContainer">
+            <div id="coinText">0</div>
+            <img id="coin" width="75" src="assets/coin.png">
+        </div>
+    </body>
+</html>
