@@ -20,6 +20,7 @@
             window.onload = function() {
                 storage = new Storage();
                 app = new App(storage, shopData, countries, 'normal');
+                App.setUpPage(storage, shopData);
             };
         </script>
     </head>

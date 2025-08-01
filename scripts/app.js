@@ -16,11 +16,15 @@ class App {
         if (storage.hasPurchase(nextDifficulty)) {
             this.nextDifficulty = nextDifficulty;
         }
-        const backgroundName = storage.getBackground();
-        const backgroundColor = this.shopData.backgrounds.find(bg => bg.name === backgroundName)?.color || '#ffffff';
-        document.body.style.setProperty('background-color', backgroundColor);
+        
         this.generateAnswerButtons();
         this.setRandomFlag();
+    }
+
+    static setUpPage(storage, shopData) {
+        const backgroundName = storage.getBackground();
+        const backgroundColor = shopData.backgrounds.find(bg => bg.name === backgroundName)?.color || '#ffffff';
+        document.body.style.setProperty('background-color', backgroundColor);
     }
 
     generateAnswerButtons() {

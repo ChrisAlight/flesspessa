@@ -3,6 +3,7 @@
         <title>Shop</title>
         <link rel="stylesheet" href="style.css" />
         <script src="scripts/storage.js"></script>
+        <script src="scripts/app.js"></script>
         <script src="scripts/shopData.js"></script>
         <script>
             let storage;
@@ -40,6 +41,7 @@
                         if (storage.hasPurchase(item.name)) {
                             if (category === 'backgrounds') {
                                 storage.setBackground(item.name);
+                                App.setUpPage(storage, shopData);
                             }
                         } else if (storage.getCoins() >= item.price) {
                             storage.spendCoins(item.price);
@@ -58,6 +60,8 @@
             }
             window.onload = function() {
                 storage = new Storage(); 
+
+                App.setUpPage(storage, shopData);
                 
                 const shopNavigation = document.getElementById('shopNavigation');
                 for (const category in shopData) {
