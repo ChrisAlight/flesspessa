@@ -2,6 +2,7 @@
     <head>
         <title>Flesspessa</title>
         <link rel="stylesheet" href="style.css" />
+        <link rel="manifest" href="manifest.json">
         <script src="scripts/storage.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/shopData.js"></script>
@@ -41,6 +42,13 @@
                     document.getElementById('difficulty').value = difficulty;
                 }
             };
+        </script>
+        <script>
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/service-worker.js');
+            });
+          }
         </script>
     </head>
     <body>
