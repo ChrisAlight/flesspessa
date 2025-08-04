@@ -4,15 +4,17 @@ class App {
     shopData;
     countries;
     nextDifficulty;
+    reward;
 
     hasAnswered = false;
     correctAnswer;
     correctAnswerCount = 0;
 
-    constructor(storage, shopData, countries, nextDifficulty) {
+    constructor(storage, shopData, countries, nextDifficulty, reward) {
         this.storage = storage;
         this.shopData = shopData;
         this.countries = countries;
+        this.reward = reward;
         if (storage.hasPurchase(nextDifficulty)) {
             this.nextDifficulty = nextDifficulty;
         }
@@ -66,7 +68,7 @@ class App {
 
         if (wasCorrect) {
             this.correctAnswerCount++;
-            this.storage.addCoins(3);
+            this.storage.addCoins(this.reward);
             resultMessage.innerHTML = `Correct! The flag is for ${this.correctAnswer.name}.`;
             resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : this.nextDifficulty ? `try ${this.nextDifficulty}` : 'back to menu';
             resultLink.onclick = () => {
