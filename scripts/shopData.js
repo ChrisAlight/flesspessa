@@ -1,8 +1,16 @@
 const shopData = {
     backgrounds: [
         { name: 'red', price: 50, color: '#ffaaaa' },
+        { name: 'orange', price: 50, color: '#ff8e03ff' },
         { name: 'yellow', price: 50, color: '#ffffaa' },
-        { name: 'blue', price: 50, color: '#aaaaff' }
+        { name: 'green', price: 50, color: '#aaffaa' },
+        { name: 'blue', price: 50, color: '#aaaaff' },
+        { name: 'purple', price: 50, color: '#ba00feff' },
+        { name: 'pink', price: 50, color: '#ffb3d9ff' },
+        { name: 'brown', price: 50, color: '#a0522d' },
+        { name: 'white', price: 0, color: '#ffffff' },
+        { name: 'gray', price: 50, color: '#808080' },
+        { name: 'black', price: 50, color: '#000000' },
     ],
     difficulty: [
         { name: 'normal', price: 30 },

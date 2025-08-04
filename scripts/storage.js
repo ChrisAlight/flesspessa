@@ -9,6 +9,7 @@ class Storage {
         }
         if (!localStorage.getItem('purchases')) {
             localStorage.setItem('purchases', '[]');
+            this.addPurchase('white'); // Default background
         }
         if (!localStorage.getItem('difficulty')) {
             localStorage.setItem('difficulty', 'easy');
