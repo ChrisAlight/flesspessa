@@ -19,7 +19,7 @@
             let storage;
             window.onload = function() {
                 storage = new Storage();
-                app = new App(storage, shopData, countries);
+                app = new App(storage, shopData, countries, undefined, 7);
                 App.setUpPage(storage, shopData);
             };
         </script>
