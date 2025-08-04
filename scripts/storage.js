@@ -11,7 +11,7 @@ class Storage {
             localStorage.setItem('purchases', '[]');
         }
         if (!localStorage.getItem('difficulty')) {
-            localStorage.setItem('difficulty', 'normal');
+            localStorage.setItem('difficulty', 'easy');
         }
         this.updateCoinText();
     }
@@ -72,7 +72,7 @@ class Storage {
     }
 
     getDifficulty() {
-        return localStorage.getItem('difficulty') || 'normal';
+        return localStorage.getItem('difficulty') || 'easy';
     }
 
     setDifficulty(difficulty) {
