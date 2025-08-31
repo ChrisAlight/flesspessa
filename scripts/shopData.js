@@ -4,6 +4,7 @@ const shopData = {
         { name: 'orange', price: 50, color: '#ff8e03ff' },
         { name: 'yellow', price: 50, color: '#ffffaa' },
         { name: 'green', price: 50, color: '#aaffaa' },
+        { name: 'teal', price: 50, color: '#02ffccff' },
         { name: 'blue', price: 50, color: '#aaaaff' },
         { name: 'purple', price: 50, color: '#ba00feff' },
         { name: 'pink', price: 50, color: '#ffb3d9ff' },
