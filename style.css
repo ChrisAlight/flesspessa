@@ -4,6 +4,9 @@
     align-items: center;
     align-self: center;
     justify-content: center;
+}
+
+.body-centered {
     justify-items: center;
 }
 
@@ -71,4 +74,17 @@ img#coin {
     position: relative;
     left: 290px;
     bottom: 95px;
+}
+#svgMap {
+    width: 100%;
+    height: 100vh;
+}
+
+#svgMap, #svgMap * {
+    text-align: initial !important;
+    align-content: initial !important;
+    align-items: initial !important;
+    align-self: initial !important;
+    justify-content: initial !important;
+    justify-items: initial !important;
 }

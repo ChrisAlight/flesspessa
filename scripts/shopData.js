@@ -23,5 +23,8 @@ const shopData = {
     //     { name: 'spike ball', price: 10, image: 'assets/characters/spikeBall.png' },
     //     { name: 'tree man', price: 10, image: 'assets/characters/treeMan.png' },
     //     { name: '33 damage', price: 10, image: 'assets/characters/33Damage.png' }
-    // ]
+    // ],
+    map: [
+        { name: 'map', price: 1000 }
+    ]
 }
