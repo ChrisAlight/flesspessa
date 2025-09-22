@@ -75,6 +75,14 @@ img#coin {
     left: 290px;
     bottom: 95px;
 }
+#mapButton{
+    float:right;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    width:155px;
+    height:150px;
+    }
 #svgMap {
     width: 100%;
     height: 100vh;

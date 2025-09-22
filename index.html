@@ -41,6 +41,10 @@
                 if (difficulty) {
                     document.getElementById('difficulty').value = difficulty;
                 }
+
+                if (!storage.hasPurchase('map')) {
+                    document.getElementById('mapbutton').style.display = 'none';
+                }
             };
         </script>
         <script>
@@ -62,6 +66,7 @@
         <select id="difficulty">
             <option value="easy">Easy</option>
         </select>
+        <button id="mapButton" onclick="window.location.href='map.html'">Map</button>
         <button onclick="startGame()">Start Game</button>
         <button onclick="addSuperHard()">Multi start no</button>
         <button>$10 show extra level</button>
