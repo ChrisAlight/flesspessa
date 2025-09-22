@@ -46,49 +46,55 @@ button {
     bottom: 10px;
     z-index: 1000;
 }
+
 img#coin {
     width: 100px;
     height: 100px;
-    display:inline;
-     float : right;
+    display: inline;
+    float: right;
     position: relative;
-    right:-10px;
+    right: -10px;
 }
-#coinText{
-    display:block;
-    float : right;
+
+#coinText {
+    display: block;
+    float: right;
     position: relative;
     font-size: 20pt;
     border: 2px solid black;
     width: 200px;
-    top:30px;
+    top: 30px;
 }
+
 #shopImageButton {
-    float:right;
-    width:180px;
-    height:79px;
+    float: right;
+    width: 180px;
+    height: 79px;
     background-image: url('assets/shop.png');
-    font-size:12pt;
+    font-size: 12pt;
     background-repeat: no-repeat;
     text-align: right;
     position: relative;
     left: 290px;
     bottom: 95px;
 }
-#mapButton{
-    float:right;
+
+#mapButton {
+    float: right;
     position: fixed;
     right: 10px;
     top: 10px;
-    width:155px;
-    height:150px;
-    }
+    width: 155px;
+    height: 150px;
+}
+
 #svgMap {
     width: 100%;
     height: 100vh;
 }
 
-#svgMap, #svgMap * {
+#svgMap,
+#svgMap * {
     text-align: initial !important;
     align-content: initial !important;
     align-items: initial !important;
