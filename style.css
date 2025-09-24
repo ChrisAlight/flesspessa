@@ -102,3 +102,8 @@ img#coin {
     justify-content: initial !important;
     justify-items: initial !important;
 }
+
+.svgMap-map-wrapper .svgMap-map-controls-wrapper {
+    right: 10px;
+    left: initial;
+}
