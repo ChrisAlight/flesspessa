@@ -1,79 +1,82 @@
 <html>
-    <head>
-        <title>Flesspessa</title>
-        <link rel="stylesheet" href="style.css" />
-        <link rel="manifest" href="manifest.json">
-        <script src="scripts/storage.js"></script>
-        <script src="scripts/app.js"></script>
-        <script src="scripts/shopData.js"></script>
-        <script>
-            let storage;
-            
-            function startGame() {
-                // const mode = document.getElementById('mode').getAttribute('value');
-                const difficulty = document.getElementById('difficulty').value;
-                storage.setDifficulty(difficulty);
-                window.location.href = `${difficulty}.html`;
-            }
-            function addSuperHard() {
-                const difficulty = document.getElementById('difficulty');
-                if (difficulty.length > 3) {
-                    return;
-                }
-                difficulty.options.add(new Option('Super Hard', 'superHard'))
-                storage.addPurchase('superHard');
-            }
-            function addPurchasedDifficulties() {
-                const difficultyElement = document.getElementById('difficulty');
-                for (const difficulty of ['normal', 'hard', 'superHard']) {
-                    if (storage.hasPurchase(difficulty)) {
-                        difficultyElement.options.add(new Option(difficulty.charAt(0).toUpperCase() + difficulty.slice(1), difficulty));
-                    }
-                }
-            }
-            window.onload = function() {
-                storage = new Storage();
 
-                App.setUpPage(storage, shopData);
+<head>
+    <title>Flesspessa</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json">
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/shopData.js"></script>
+    <script>
+        let storage;
 
-                addPurchasedDifficulties();                
-                const difficulty = storage.getDifficulty();
-                if (difficulty) {
-                    document.getElementById('difficulty').value = difficulty;
+        function startGame() {
+            // const mode = document.getElementById('mode').getAttribute('value');
+            const difficulty = document.getElementById('difficulty').value;
+            storage.setDifficulty(difficulty);
+            window.location.href = `game.html?difficulty=${difficulty}`;
+        }
+        function addSuperHard() {
+            const difficulty = document.getElementById('difficulty');
+            if (difficulty.length > 3) {
+                return;
+            }
+            difficulty.options.add(new Option('Super Hard', 'superHard'))
+            storage.addPurchase('superHard');
+        }
+        function addPurchasedDifficulties() {
+            const difficultyElement = document.getElementById('difficulty');
+            for (const difficulty of ['normal', 'hard', 'superHard']) {
+                if (storage.hasPurchase(difficulty)) {
+                    difficultyElement.options.add(new Option(difficulty.charAt(0).toUpperCase() + difficulty.slice(1), difficulty));
                 }
+            }
+        }
+        window.onload = function () {
+            storage = new Storage();
 
-                if (!storage.hasPurchase('map')) {
-                    document.getElementById('mapButton').style.display = 'none';
-                }
-            };
-        </script>
-        <script>
-          if ('serviceWorker' in navigator) {
+            App.setUpPage(storage, shopData);
+
+            addPurchasedDifficulties();
+            const difficulty = storage.getDifficulty();
+            if (difficulty) {
+                document.getElementById('difficulty').value = difficulty;
+            }
+
+            if (!storage.hasPurchase('map')) {
+                document.getElementById('mapButton').style.display = 'none';
+            }
+        };
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-              navigator.serviceWorker.register('/service-worker.js');
+                navigator.serviceWorker.register('/service-worker.js');
             });
-          }
-        </script>
-    </head>
-    <body class="body-centered">
-        <h1>Flesspessa</h1>
-        <!--
+        }
+    </script>
+</head>
+
+<body class="body-centered">
+    <h1>Flesspessa</h1>
+    <!--
         <select id="mode">
             <option value="single">Single Player</option>
             <option value="multi">Multiplayer</option>
         </select>
         -->
-        <select id="difficulty">
-            <option value="easy">Easy</option>
-        </select>
-        <button id="mapButton" onclick="window.location.href='map.html'">Map</button>
-        <button onclick="startGame()">Start Game</button>
-        <button onclick="addSuperHard()">Multi start no</button>
-        <button>$10 show extra level</button>
-        <div id="coinContainer">
-            <div id="coinText">0</div>
-            <img id="coin" width="75" src="assets/coin.png">
-            <button id="shopImageButton" onclick="window.location.href='shop.html'">Go to shop</button>
-        </div>
-    </body>
+    <select id="difficulty">
+        <option value="easy">Easy</option>
+    </select>
+    <button id="mapButton" onclick="window.location.href='map.html'">Map</button>
+    <button onclick="startGame()">Start Game</button>
+    <button onclick="addSuperHard()">Multi start no</button>
+    <button>$10 show extra level</button>
+    <div id="coinContainer">
+        <div id="coinText">0</div>
+        <img id="coin" width="75" src="assets/coin.png">
+        <button id="shopImageButton" onclick="window.location.href='shop.html'">Go to shop</button>
+    </div>
+</body>
+
 </html>

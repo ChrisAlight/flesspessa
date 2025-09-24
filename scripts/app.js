@@ -1,24 +1,86 @@
+const difficultyData = {
+    easy: {
+        name: 'Easy',
+        countries: [
+            { name: 'USA', code: 'us' },
+            { name: 'Canada', code: 'ca' },
+            { name: 'China', code: 'cn' },
+            { name: 'Jamaica', code: 'jm' },
+            { name: 'UK', code: 'gb' },
+            { name: 'Ireland', code: 'ie' }
+        ],
+        reward: 3
+    },
+    normal: {
+        name: 'Normal',
+        countries: [
+            { name: 'Serbia', code: 'rs' },
+            { name: 'Sweden', code: 'se' },
+            { name: 'Philippines', code: 'ph' },
+            { name: 'Netherlands', code: 'nl' },
+            { name: 'Bahamas', code: 'bs' },
+            { name: 'Portugal', code: 'pt' }
+        ],
+        reward: 5
+    },
+    hard: {
+        name: 'Hard',
+        countries: [
+            { name: 'Ghana', code: 'gh' },
+            { name: 'Uganda', code: 'ug' },
+            { name: 'Kenya', code: 'ke' },
+            { name: 'Rwanda', code: 'rw' },
+            { name: 'Brunei', code: 'bn' },
+            { name: 'Mauritius', code: 'mu' }
+        ],
+        reward: 7
+    },
+    superHard: {
+        name: 'Super Hard!!!!!',
+        countries: [
+            { name: 'Monaco', code: 'mc' },
+            { name: 'Indonesia', code: 'id' },
+            { name: 'Poland', code: 'pl' },
+            { name: 'Chad', code: 'td' },
+            { name: 'Romania', code: 'ro' },
+            { name: 'Dominica', code: 'dm' }
+        ],
+        reward: 10
+    }
+};
 
 class App {
     storage;
     shopData;
-    countries;
+    difficulty;
     nextDifficulty;
+    countries;
     reward;
 
     hasAnswered = false;
     correctAnswer;
     correctAnswerCount = 0;
 
-    constructor(storage, shopData, countries, nextDifficulty, reward) {
+    constructor(storage, shopData) {
         this.storage = storage;
         this.shopData = shopData;
-        this.countries = countries;
-        this.reward = reward;
-        if (storage.hasPurchase(nextDifficulty)) {
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        this.difficulty = urlParams.get('difficulty');
+        if (!(this.difficulty in difficultyData) || !storage.hasPurchase(this.difficulty)) {
+            this.difficulty = 'easy';
+        }
+        document.getElementById('difficultyHeader').innerHTML = difficultyData[this.difficulty].name;
+
+        const nextDifficulty = Object.keys(difficultyData)[Object.keys(difficultyData).indexOf(this.difficulty) + 1];
+        if (nextDifficulty && storage.hasPurchase(nextDifficulty)) {
             this.nextDifficulty = nextDifficulty;
         }
-        
+
+        this.countries = difficultyData[this.difficulty].countries;
+        this.reward = difficultyData[this.difficulty].reward;
+
         this.generateAnswerButtons();
         this.setRandomFlag();
     }
@@ -42,8 +104,8 @@ class App {
     }
 
     getRandomCountry() {
-        const randomIndex = Math.floor(Math.random() * countries.length);
-        return countries.splice(randomIndex, 1)[0];
+        const randomIndex = Math.floor(Math.random() * this.countries.length);
+        return this.countries.splice(randomIndex, 1)[0];
     }
 
     setRandomFlag() {
@@ -75,8 +137,10 @@ class App {
                 if (this.correctAnswerCount < 3) {
                     this.setRandomFlag();
                     result.style.display = 'none';
+                } else if (this.nextDifficulty) {
+                    window.location.href = `game.html?difficulty=${this.nextDifficulty}`;
                 } else {
-                    window.location.href = `${this.nextDifficulty ?? 'index'}.html`;
+                    window.location.href = 'index.html';
                 }
                 this.hasAnswered = false;
             };
