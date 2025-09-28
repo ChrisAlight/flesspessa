@@ -46,6 +46,16 @@
             if (!storage.hasPurchase('map')) {
                 document.getElementById('mapButton').style.display = 'none';
             }
+
+            if (storage.hasPurchase('flag drag')) {
+                const flagDragPlaceholder = document.getElementById('flagDragPlaceholder');
+                const flagDragButton = document.createElement('button');
+                flagDragButton.innerText = 'Flag Drag';
+                flagDragButton.onclick = function () {
+                    window.location.href = 'flagDrag.html';
+                };
+                flagDragPlaceholder.replaceWith(flagDragButton);
+            }
         };
     </script>
     <script>
@@ -72,6 +82,7 @@
     <button onclick="startGame()">Start Game</button>
     <button onclick="addSuperHard()">Multi start no</button>
     <button>$10 show extra level</button>
+    <span id="flagDragPlaceholder"></span>
     <div id="coinContainer">
         <div id="coinText">0</div>
         <img id="coin" width="75" src="assets/coin.png">

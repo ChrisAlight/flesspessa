@@ -132,7 +132,7 @@ class App {
             this.correctAnswerCount++;
             this.storage.addCoins(this.reward);
             resultMessage.innerHTML = `Correct! The flag is for ${this.correctAnswer.name}.`;
-            resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : this.nextDifficulty ? `try ${this.nextDifficulty}` : 'back to menu';
+            resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : this.nextDifficulty ? `Try ${difficultyData[this.nextDifficulty].name}` : 'Back to Menu';
             resultLink.onclick = () => {
                 if (this.correctAnswerCount < 3) {
                     this.setRandomFlag();
