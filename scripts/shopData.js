@@ -5,7 +5,7 @@ const shopData = {
         { name: 'yellow', price: 50, color: '#ffffaa' },
         { name: 'green', price: 50, color: '#aaffaa' },
         { name: 'teal', price: 50, color: '#02ffccff' },
-        { name: 'blue', price: 50, color: '#aaaaff' },
+        { name: 'blue', price: 50, color: '#7171d2ff' },
         { name: 'purple', price: 50, color: '#ba00feff' },
         { name: 'pink', price: 50, color: '#ffb3d9ff' },
         { name: 'brown', price: 50, color: '#a0522d' },
@@ -14,6 +14,7 @@ const shopData = {
         { name: 'black', price: 50, color: '#000000' },
     ],
     difficulty: [
+        { name: 'flag drag', price: 0 },
         { name: 'normal', price: 30 },
         { name: 'hard', price: 50 }
     ],

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flag Drag</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts/storage.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/shopData.js"></script>
+    <script src="scripts/flagDrag.js"></script>
+    <script>
+        window.onload = function () {
+            storage = new Storage();
+
+            App.setUpPage(storage, shopData);
+            FlagDrag.setUpFlags();
+        }
+    </script>
+    <style>
+        .drop-zone {
+            border: 2px dashed #888;
+            padding: 16px;
+            margin: 8px 0;
+            min-height: 40px;
+            background: #f9f9f9;
+        }
+
+        .draggable-flag {
+            height: 60px;
+            margin: 4px;
+            cursor: grab;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" id="homeLink"><img width="75" src="assets/leftArrow.png"></a>
+    <h1>Flag Drag</h1>
+    <p>Drag each flag to the correct country drop zone.</p>
+    <div id="draggableCountries" style="margin-bottom: 24px;"></div>
+    <div id="dropZones"></div>
+    <div id="result" style="margin-top: 16px;"></div>
+    <div id="coinContainer">
+        <div id="coinText">0</div>
+        <img id="coin" width="75" src="assets/coin.png">
+    </div>
+</body>
+
+</html>
