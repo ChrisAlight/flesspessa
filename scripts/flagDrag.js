@@ -260,21 +260,7 @@ class FlagDrag {
             zone.ondrop = function (e) {
                 e.preventDefault();
                 const draggedCode = e.dataTransfer.getData('text/plain');
-                if (draggedCode === countryCode) {
-                    this.style.background = '#cfc';
-                    this.innerHTML = `<strong>Correct! ${countryNames[countryCode].name}</strong>`;
-                    this.ondrop = e => e.preventDefault();
-
-                    storage.addCoins(1);
-
-                    document.getElementById(`flag-${countryCode}`).remove();
-                    if (draggableList.children.length === 0) {
-                        result.innerHTML = '<strong>All flags placed! Well done!</strong><br /><a href="javascript:FlagDrag.setUpFlags()">Play Again</a>';
-                    }
-                } else {
-                    this.style.background = '#fcc';
-                    this.innerHTML = `<strong>Wrong! Try again for ${countryNames[countryCode].name}</strong>`;
-                }
+                FlagDrag.handleDrop(this, draggedCode, draggableList, result);
             };
             dropZones.appendChild(zone);
         });
@@ -292,7 +278,73 @@ class FlagDrag {
             flag.ondragstart = function (e) {
                 e.dataTransfer.setData('text/plain', countryCode);
             };
+
+            // Touch event support for mobile
+            let touchClone = null;
+            let lastTouch = null;
+            flag.addEventListener('touchstart', function (e) {
+                if (e.touches.length !== 1) return;
+                flag.style.opacity = '0.6';
+                lastTouch = e.touches[0];
+                // Create a clone to follow the finger
+                touchClone = flag.cloneNode(true);
+                touchClone.style.position = 'fixed';
+                touchClone.style.pointerEvents = 'none';
+                touchClone.style.zIndex = '9999';
+                touchClone.style.left = (lastTouch.clientX - flag.width / 2) + 'px';
+                touchClone.style.top = (lastTouch.clientY - flag.height / 2) + 'px';
+                touchClone.style.opacity = '0.8';
+                document.body.appendChild(touchClone);
+            });
+            flag.addEventListener('touchmove', function (e) {
+                if (!touchClone || e.touches.length !== 1) return;
+                lastTouch = e.touches[0];
+                touchClone.style.left = (lastTouch.clientX - flag.width / 2) + 'px';
+                touchClone.style.top = (lastTouch.clientY - flag.height / 2) + 'px';
+                e.preventDefault();
+            }, { passive: false });
+            flag.addEventListener('touchend', function (e) {
+                flag.style.opacity = '';
+                if (touchClone) {
+                    // Detect drop zone under finger
+                    const dropZones = document.querySelectorAll('.drop-zone');
+                    let dropped = false;
+                    dropZones.forEach(zone => {
+                        if (dropped) return;
+
+                        const rect = zone.getBoundingClientRect();
+                        if (lastTouch && lastTouch.clientX >= rect.left && lastTouch.clientX <= rect.right && lastTouch.clientY >= rect.top && lastTouch.clientY <= rect.bottom) {
+                            FlagDrag.handleDrop(zone, countryCode, draggableList, result);
+                            dropped = true;
+                        }
+                    });
+                    document.body.removeChild(touchClone);
+                    touchClone = null;
+                    lastTouch = null;
+                }
+            });
             draggableList.appendChild(flag);
         });
+    }
+
+    static handleDrop(zone, draggedCode, draggableList, result) {
+        if (zone.classList.contains('correct')) return; // Already correct
+        
+        const countryCode = zone.dataset.country;
+        if (draggedCode === countryCode) {
+            zone.classList.add('correct');
+            zone.classList.remove('incorrect');
+            zone.innerHTML = `<strong>Correct! ${countryNames[countryCode].name}</strong>`;
+            zone.ondrop = e => e.preventDefault();
+            storage.addCoins(1);
+            const flagEl = document.getElementById(`flag-${countryCode}`);
+            if (flagEl) flagEl.remove();
+            if (draggableList.children.length === 0) {
+                result.innerHTML = '<strong>All flags placed! Well done!</strong><br /><a href="javascript:FlagDrag.setUpFlags()">Play Again</a>';
+            }
+        } else {
+            zone.classList.add('incorrect');
+            zone.innerHTML = `<strong>Wrong! Try again for ${countryNames[countryCode].name}</strong>`;
+        }
     }
 };
