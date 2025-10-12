@@ -74,9 +74,9 @@ img#coin {
     font-size: 12pt;
     background-repeat: no-repeat;
     text-align: right;
-    position: relative;
-    left: 290px;
-    bottom: 95px;
+    position: fixed;
+    right: 17px;
+    bottom: 55px;
 }
 
 #mapButton {
