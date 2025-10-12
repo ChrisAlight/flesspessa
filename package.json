@@ -1,0 +1,26 @@
+{
+  "name": "flesspessa",
+  "version": "1.0.0",
+  "description": "A flag learning game",
+  "main": "service-worker.js",
+  "scripts": {
+    "start": "npm run build",
+    "build": "node esbuild.config.js"
+  },
+  "dependencies": {
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ChrisAlight/flesspessa.git"
+  },
+  "author": "Ollie Light",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrisAlight/flesspessa/issues"
+  },
+  "homepage": "https://github.com/ChrisAlight/flesspessa"
+}

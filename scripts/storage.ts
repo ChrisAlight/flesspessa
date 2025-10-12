@@ -1,4 +1,4 @@
-class Storage {
+export class Storage {
     constructor() {
         this.init();
     }
@@ -17,11 +17,11 @@ class Storage {
         this.updateCoinText();
     }
 
-    getCoins() {
-        return parseInt(localStorage.getItem('coins')) || 0;
+    getCoins(): number {
+        return parseInt(localStorage.getItem('coins') || '0') || 0;
     }
 
-    setCoins(amount) {
+    setCoins(amount: number) {
         if (typeof amount !== 'number' || amount < 0) {
             throw new Error('Invalid coin amount');
         }
@@ -29,7 +29,7 @@ class Storage {
         this.updateCoinText();
     }
 
-    addCoins(amount) {
+    addCoins(amount: number) {
         if (typeof amount !== 'number' || amount < 0) {
             throw new Error('Invalid coin amount');
         }
@@ -37,7 +37,7 @@ class Storage {
         this.setCoins(currentCoins + amount);
     }
 
-    spendCoins(amount) {
+    spendCoins(amount: number) {
         if (typeof amount !== 'number' || amount < 0) {
             throw new Error('Invalid coin amount');
         }
@@ -51,20 +51,20 @@ class Storage {
     updateCoinText() {
         const coinText = document.getElementById('coinText');
         if (coinText) {
-            coinText.innerHTML = this.getCoins();
+            coinText.innerHTML = String(this.getCoins());
         }
     }
 
-    getPurchases() {
-        return JSON.parse(localStorage.getItem('purchases')) || [];
+    getPurchases(): string[] {
+        return JSON.parse(localStorage.getItem('purchases') || '[]') || [];
     }
 
-    hasPurchase(itemId) {
+    hasPurchase(itemId: string): boolean {
         const purchases = this.getPurchases();
         return purchases.includes(itemId);
     }
 
-    addPurchase(itemId) {
+    addPurchase(itemId: string) {
         const purchases = this.getPurchases();
         if (!purchases.includes(itemId)) {
             purchases.push(itemId);
@@ -72,11 +72,11 @@ class Storage {
         }
     }
 
-    getDifficulty() {
+    getDifficulty(): string {
         return localStorage.getItem('difficulty') || 'easy';
     }
 
-    setDifficulty(difficulty) {
+    setDifficulty(difficulty: string) {
         const validDifficulties = ['easy', 'normal', 'hard', 'superHard'];
         if (!validDifficulties.includes(difficulty)) {
             throw new Error('Invalid difficulty');
@@ -84,14 +84,17 @@ class Storage {
         localStorage.setItem('difficulty', difficulty);
     }
 
-    setBackground(background) {
+    setBackground(background: string) {
         if (typeof background !== 'string') {
             throw new Error('Invalid background');
         }
         localStorage.setItem('background', background);
     }
 
-    getBackground() {
+    getBackground(): string | null {
         return localStorage.getItem('background');
     }
 }
+
+// Default export for compatibility with existing code that may import as default
+export default Storage;

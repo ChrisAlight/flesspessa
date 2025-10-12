@@ -1,4 +1,8 @@
-const difficultyData = {
+import { shopData } from './shopData';
+
+type Country = { name: string; code: string };
+
+export const difficultyData: { [k: string]: { name: string; countries: Country[]; reward: number } } = {
     easy: {
         name: 'Easy',
         countries: [
@@ -49,50 +53,53 @@ const difficultyData = {
     }
 };
 
-class App {
-    storage;
-    shopData;
-    difficulty;
-    nextDifficulty;
-    countries;
-    reward;
+// Loose type for storage to match existing global pattern
+declare const storage: any;
+
+export class App {
+    storage: any;
+    shopData: typeof shopData;
+    difficulty: string;
+    nextDifficulty?: string;
+    countries: Country[];
+    reward: number;
 
     hasAnswered = false;
-    correctAnswer;
+    correctAnswer?: Country;
     correctAnswerCount = 0;
 
-    constructor(storage, shopData) {
+    constructor(storage: any, shopDataArg: typeof shopData) {
         this.storage = storage;
-        this.shopData = shopData;
+        this.shopData = shopDataArg;
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        this.difficulty = urlParams.get('difficulty');
+        this.difficulty = urlParams.get('difficulty') || '';
         if (!(this.difficulty in difficultyData) || !storage.hasPurchase(this.difficulty)) {
             this.difficulty = 'easy';
         }
-        document.getElementById('difficultyHeader').innerHTML = difficultyData[this.difficulty].name;
+        (document.getElementById('difficultyHeader')!).innerHTML = difficultyData[this.difficulty].name;
 
         const nextDifficulty = Object.keys(difficultyData)[Object.keys(difficultyData).indexOf(this.difficulty) + 1];
         if (nextDifficulty && storage.hasPurchase(nextDifficulty)) {
             this.nextDifficulty = nextDifficulty;
         }
 
-        this.countries = difficultyData[this.difficulty].countries;
+        this.countries = difficultyData[this.difficulty].countries.slice();
         this.reward = difficultyData[this.difficulty].reward;
 
         this.generateAnswerButtons();
         this.setRandomFlag();
     }
 
-    static setUpPage(storage, shopData) {
+    static setUpPage(storage: any, shopDataArg: typeof shopData) {
         const backgroundName = storage.getBackground();
-        const backgroundColor = shopData.backgrounds.find(bg => bg.name === backgroundName)?.color || '#ffffff';
+        const backgroundColor = shopDataArg.backgrounds.find((bg: any) => bg.name === backgroundName)?.color || '#ffffff';
         document.body.style.setProperty('background-color', backgroundColor);
     }
 
     generateAnswerButtons() {
-        const answerButtonContainer = document.getElementById('answerButtons');
+        const answerButtonContainer = document.getElementById('answerButtons')!;
         answerButtonContainer.innerHTML = '';
 
         for (const country of this.countries) {
@@ -103,40 +110,40 @@ class App {
         }
     }
 
-    getRandomCountry() {
+    getRandomCountry(): Country {
         const randomIndex = Math.floor(Math.random() * this.countries.length);
         return this.countries.splice(randomIndex, 1)[0];
     }
 
     setRandomFlag() {
         const randomCountry = this.getRandomCountry();
-        const flagImage = document.getElementById('flagImage');
+        const flagImage = document.getElementById('flagImage') as HTMLImageElement;
         flagImage.src = `assets/flags/${randomCountry.code}.webp`;
         this.correctAnswer = randomCountry;
     }
 
-    answer(selection) {
+    answer(selection: string) {
         if (this.hasAnswered) {
             return;
         }
         this.hasAnswered = true;
 
-        const result = document.getElementById('result');
-        const resultMessage = document.getElementById('resultMessage');
-        const resultLink = document.getElementById('resultLink');
-        const wasCorrect = selection === this.correctAnswer.name;
+        const result = document.getElementById('result')!;
+        const resultMessage = document.getElementById('resultMessage')!;
+        const resultLink = document.getElementById('resultLink')!;
+        const wasCorrect = selection === this.correctAnswer!.name;
 
-        result.style = 'display: inherit';
+        (result as HTMLElement).style.display = 'inherit';
 
         if (wasCorrect) {
             this.correctAnswerCount++;
             this.storage.addCoins(this.reward);
-            resultMessage.innerHTML = `Correct! The flag is for ${this.correctAnswer.name}.`;
+            resultMessage.innerHTML = `Correct! The flag is for ${this.correctAnswer!.name}.`;
             resultLink.innerHTML = this.correctAnswerCount < 3 ? 'Next Question' : this.nextDifficulty ? `Try ${difficultyData[this.nextDifficulty].name}` : 'Back to Menu';
             resultLink.onclick = () => {
                 if (this.correctAnswerCount < 3) {
                     this.setRandomFlag();
-                    result.style.display = 'none';
+                    (result as HTMLElement).style.display = 'none';
                 } else if (this.nextDifficulty) {
                     window.location.href = `game.html?difficulty=${this.nextDifficulty}`;
                 } else {
@@ -148,10 +155,12 @@ class App {
             resultMessage.innerHTML = 'Incorrect!';
             resultLink.innerHTML = 'Try Again';
             resultLink.onclick = () => {
-                result.style.display = 'none';
+                (result as HTMLElement).style.display = 'none';
                 this.hasAnswered = false;
             };
         }
 
     }
 }
+
+export default App;
