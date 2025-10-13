@@ -289,7 +289,7 @@ export class FlagDrag {
             let lastTouch: Touch | null = null;
             flag.addEventListener('touchstart', function (e) {
                 if (e.touches.length !== 1) return;
-                (flag as HTMLElement).style.opacity = '0.6';
+                flag.style.opacity = '0.6';
                 lastTouch = e.touches[0];
                 // Create a clone to follow the finger
                 touchClone = flag.cloneNode(true) as HTMLImageElement;
@@ -309,7 +309,7 @@ export class FlagDrag {
                 e.preventDefault();
             }, { passive: false });
             flag.addEventListener('touchend', function (e) {
-                (flag as HTMLElement).style.opacity = '';
+                flag.style.opacity = '';
                 if (touchClone) {
                     // Detect drop zone under finger
                     const dropZones = document.querySelectorAll('.drop-zone');

@@ -90,7 +90,7 @@ export class App {
 
     static setUpPage(storage: Storage) {
         const backgroundName = storage.getBackground();
-        const backgroundColor = shopData.backgrounds.find((bg: any) => bg.name === backgroundName)?.color || '#ffffff';
+        const backgroundColor = shopData.backgrounds.find((bg) => bg.name === backgroundName)?.color || '#ffffff';
         document.body.style.setProperty('background-color', backgroundColor);
     }
 
@@ -129,7 +129,7 @@ export class App {
         const resultLink = document.getElementById('resultLink')!;
         const wasCorrect = selection === this.correctAnswer!.name;
 
-        (result as HTMLElement).style.display = 'inherit';
+        result.style.display = 'inherit';
 
         if (wasCorrect) {
             this.correctAnswerCount++;
@@ -139,7 +139,7 @@ export class App {
             resultLink.onclick = () => {
                 if (this.correctAnswerCount < 3) {
                     this.setRandomFlag();
-                    (result as HTMLElement).style.display = 'none';
+                    result.style.display = 'none';
                 } else if (this.nextDifficulty) {
                     window.location.href = `game.html?difficulty=${this.nextDifficulty}`;
                 } else {
@@ -151,7 +151,7 @@ export class App {
             resultMessage.innerHTML = 'Incorrect!';
             resultLink.innerHTML = 'Try Again';
             resultLink.onclick = () => {
-                (result as HTMLElement).style.display = 'none';
+                result.style.display = 'none';
                 this.hasAnswered = false;
             };
         }
