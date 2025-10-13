@@ -1,4 +1,6 @@
-const countryNames = {
+type CountryMap = { [code: string]: { name: string } };
+
+export const countryNames: CountryMap = {
     ad: { name: 'Andorra' },
     ae: { name: 'United Arab Emirates' },
     af: { name: 'Afghanistan' },
@@ -237,11 +239,14 @@ const countryNames = {
     xk: { name: 'Kosovo' }
 };
 
-class FlagDrag {
+// Keep a loose type for the global storage instance so existing code that references `storage` still works.
+declare const storage: Storage;
+
+export class FlagDrag {
     static setUpFlags() {
-        const dropZones = document.getElementById('dropZones');
-        const draggableList = document.getElementById('draggableCountries');
-        const result = document.getElementById('result');
+        const dropZones = document.getElementById('dropZones')!;
+        const draggableList = document.getElementById('draggableCountries')!;
+        const result = document.getElementById('result')!;
 
         dropZones.innerHTML = '';
         draggableList.innerHTML = '';
@@ -259,8 +264,8 @@ class FlagDrag {
             zone.ondragover = e => e.preventDefault();
             zone.ondrop = function (e) {
                 e.preventDefault();
-                const draggedCode = e.dataTransfer.getData('text/plain');
-                FlagDrag.handleDrop(this, draggedCode, draggableList, result);
+                const draggedCode = e.dataTransfer!.getData('text/plain');
+                FlagDrag.handleDrop(this as HTMLElement, draggedCode, draggableList, result);
             };
             dropZones.appendChild(zone);
         });
@@ -276,18 +281,18 @@ class FlagDrag {
             flag.draggable = true;
             flag.dataset.country = countryCode;
             flag.ondragstart = function (e) {
-                e.dataTransfer.setData('text/plain', countryCode);
+                e.dataTransfer!.setData('text/plain', countryCode);
             };
 
             // Touch event support for mobile
-            let touchClone = null;
-            let lastTouch = null;
+            let touchClone: HTMLImageElement | null = null;
+            let lastTouch: Touch | null = null;
             flag.addEventListener('touchstart', function (e) {
                 if (e.touches.length !== 1) return;
                 flag.style.opacity = '0.6';
                 lastTouch = e.touches[0];
                 // Create a clone to follow the finger
-                touchClone = flag.cloneNode(true);
+                touchClone = flag.cloneNode(true) as HTMLImageElement;
                 touchClone.style.position = 'fixed';
                 touchClone.style.pointerEvents = 'none';
                 touchClone.style.zIndex = '9999';
@@ -314,7 +319,7 @@ class FlagDrag {
 
                         const rect = zone.getBoundingClientRect();
                         if (lastTouch && lastTouch.clientX >= rect.left && lastTouch.clientX <= rect.right && lastTouch.clientY >= rect.top && lastTouch.clientY <= rect.bottom) {
-                            FlagDrag.handleDrop(zone, countryCode, draggableList, result);
+                            FlagDrag.handleDrop(zone as HTMLElement, countryCode, draggableList, result);
                             dropped = true;
                         }
                     });
@@ -327,16 +332,17 @@ class FlagDrag {
         });
     }
 
-    static handleDrop(zone, draggedCode, draggableList, result) {
+    static handleDrop(zone: HTMLElement, draggedCode: string, draggableList: HTMLElement, result: HTMLElement) {
         if (zone.classList.contains('correct')) return; // Already correct
-        
-        const countryCode = zone.dataset.country;
+
+        const countryCode = zone.dataset.country!;
         if (draggedCode === countryCode) {
             zone.classList.add('correct');
             zone.classList.remove('incorrect');
             zone.innerHTML = `<strong>Correct! ${countryNames[countryCode].name}</strong>`;
             zone.ondrop = e => e.preventDefault();
-            storage.addCoins(1);
+            // Use global storage if available
+            try { storage.addCoins(1); } catch (e) { /* ignore if storage not present */ }
             const flagEl = document.getElementById(`flag-${countryCode}`);
             if (flagEl) flagEl.remove();
             if (draggableList.children.length === 0) {
@@ -347,4 +353,6 @@ class FlagDrag {
             zone.innerHTML = `<strong>Wrong! Try again for ${countryNames[countryCode].name}</strong>`;
         }
     }
-};
+}
+
+export default FlagDrag;

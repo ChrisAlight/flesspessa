@@ -3,9 +3,7 @@
 <head>
     <title>Flesspessa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="scripts/storage.js"></script>
-    <script src="scripts/app.js"></script>
-    <script src="scripts/shopData.js"></script>
+    <script src="dist/bundle.js"></script>
     <link rel="stylesheet" href="style.css" />
     <script>
         let app;
@@ -13,7 +11,7 @@
         window.onload = function () {
             storage = new Storage();
             app = new App(storage, shopData);
-            App.setUpPage(storage, shopData);
+            App.setUpPage(storage);
         };
     </script>
 </head>

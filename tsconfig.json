@@ -1,0 +1,37 @@
+
+{
+	"compilerOptions": {
+		"target": "ES2019",
+		"module": "ESNext",
+		"lib": ["DOM", "ES2019"],
+		"allowJs": true,
+		"checkJs": false,
+		"jsx": "preserve",
+		"sourceMap": true,
+		"outDir": "./dist",
+		"rootDir": "./",
+		"moduleResolution": "bundler",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"isolatedModules": false,
+		"noEmitOnError": false,
+		"downlevelIteration": true
+	},
+	"include": [
+		"./scripts/**/*",
+		"./**/*.ts",
+		"./**/*.tsx",
+		"./**/*.js"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"assets",
+		"flags",
+		"**/*.webp"
+	]
+}

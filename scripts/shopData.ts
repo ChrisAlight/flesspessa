@@ -1,4 +1,4 @@
-const shopData = {
+export const shopData = {
     backgrounds: [
         { name: 'red', price: 50, color: '#ffaaaa' },
         { name: 'orange', price: 50, color: '#ff8e03ff' },
@@ -29,4 +29,9 @@ const shopData = {
     map: [
         { name: 'map', price: 1000 }
     ]
-}
+};
+
+export type Background = typeof shopData.backgrounds[number];
+export type DifficultyItem = typeof shopData.difficulty[number];
+
+export default shopData;
