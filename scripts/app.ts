@@ -1,4 +1,5 @@
 import { shopData } from './shopData';
+import { Storage } from './Storage';
 
 type Country = { name: string; code: string };
 
@@ -53,12 +54,8 @@ export const difficultyData: { [k: string]: { name: string; countries: Country[]
     }
 };
 
-// Loose type for storage to match existing global pattern
-declare const storage: any;
-
 export class App {
-    storage: any;
-    shopData: typeof shopData;
+    storage: Storage;
     difficulty: string;
     nextDifficulty?: string;
     countries: Country[];
@@ -68,9 +65,8 @@ export class App {
     correctAnswer?: Country;
     correctAnswerCount = 0;
 
-    constructor(storage: any, shopDataArg: typeof shopData) {
+    constructor(storage: Storage) {
         this.storage = storage;
-        this.shopData = shopDataArg;
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -92,9 +88,9 @@ export class App {
         this.setRandomFlag();
     }
 
-    static setUpPage(storage: any, shopDataArg: typeof shopData) {
+    static setUpPage(storage: Storage) {
         const backgroundName = storage.getBackground();
-        const backgroundColor = shopDataArg.backgrounds.find((bg: any) => bg.name === backgroundName)?.color || '#ffffff';
+        const backgroundColor = shopData.backgrounds.find((bg: any) => bg.name === backgroundName)?.color || '#ffffff';
         document.body.style.setProperty('background-color', backgroundColor);
     }
 

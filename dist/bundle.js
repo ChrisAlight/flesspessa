@@ -17,7 +17,7 @@ var Flesspessa = (() => {
   // scripts/entry.ts
   var entry_exports = {};
 
-  // scripts/storage.ts
+  // scripts/Storage.ts
   var Storage = class {
     constructor() {
       this.init();
@@ -102,7 +102,7 @@ var Flesspessa = (() => {
       return localStorage.getItem("background");
     }
   };
-  var storage_default = Storage;
+  var Storage_default = Storage;
 
   // scripts/shopData.ts
   var shopData = {
@@ -126,13 +126,20 @@ var Flesspessa = (() => {
       { name: "normal", price: 30 },
       { name: "hard", price: 50 }
     ],
+    // characters: [
+    //     { name: 'snake', price: 10, image: 'assets/characters/snake.png' },
+    //     { name: 'dog', price: 10, image: 'assets/characters/dog.png' },
+    //     { name: 'spike ball', price: 10, image: 'assets/characters/spikeBall.png' },
+    //     { name: 'tree man', price: 10, image: 'assets/characters/treeMan.png' },
+    //     { name: '33 damage', price: 10, image: 'assets/characters/33Damage.png' }
+    // ],
     map: [
       { name: "map", price: 1e3 }
     ]
   };
   var shopData_default = shopData;
 
-  // scripts/app.ts
+  // scripts/App.ts
   var difficultyData = {
     easy: {
       name: "Easy",
@@ -184,11 +191,10 @@ var Flesspessa = (() => {
     }
   };
   var App = class {
-    constructor(storage2, shopDataArg) {
+    constructor(storage2) {
       this.hasAnswered = false;
       this.correctAnswerCount = 0;
       this.storage = storage2;
-      this.shopData = shopDataArg;
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       this.difficulty = urlParams.get("difficulty") || "";
@@ -205,10 +211,10 @@ var Flesspessa = (() => {
       this.generateAnswerButtons();
       this.setRandomFlag();
     }
-    static setUpPage(storage2, shopDataArg) {
+    static setUpPage(storage2) {
       var _a;
       const backgroundName = storage2.getBackground();
-      const backgroundColor = ((_a = shopDataArg.backgrounds.find((bg) => bg.name === backgroundName)) == null ? void 0 : _a.color) || "#ffffff";
+      const backgroundColor = ((_a = shopData.backgrounds.find((bg) => bg.name === backgroundName)) == null ? void 0 : _a.color) || "#ffffff";
       document.body.style.setProperty("background-color", backgroundColor);
     }
     generateAnswerButtons() {
@@ -267,9 +273,9 @@ var Flesspessa = (() => {
       }
     }
   };
-  var app_default = App;
+  var App_default = App;
 
-  // scripts/flagDrag.ts
+  // scripts/FlagDrag.ts
   var countryNames = {
     ad: { name: "Andorra" },
     ae: { name: "United Arab Emirates" },
@@ -608,13 +614,13 @@ var Flesspessa = (() => {
       }
     }
   };
-  var flagDrag_default = FlagDrag;
+  var FlagDrag_default = FlagDrag;
 
   // scripts/entry.ts
-  window.Storage = storage_default;
+  window.Storage = Storage_default;
   window.shopData = shopData_default;
-  window.App = app_default;
-  window.FlagDrag = flagDrag_default;
+  window.App = App_default;
+  window.FlagDrag = FlagDrag_default;
   window.difficultyData = difficultyData;
   return __toCommonJS(entry_exports);
 })();

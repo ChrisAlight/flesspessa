@@ -240,7 +240,7 @@ export const countryNames: CountryMap = {
 };
 
 // Keep a loose type for the global storage instance so existing code that references `storage` still works.
-declare const storage: any;
+declare const storage: Storage;
 
 export class FlagDrag {
     static setUpFlags() {

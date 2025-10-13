@@ -1,7 +1,7 @@
-import Storage from './storage';
-import shopData, { Background } from './shopData';
-import App, { difficultyData } from './app';
-import FlagDrag from './flagDrag';
+import Storage from './Storage';
+import shopData from './shopData';
+import App, { difficultyData } from './App';
+import FlagDrag from './FlagDrag';
 
 // Attach to window for backward compatibility with inline scripts in HTML
 declare global {
