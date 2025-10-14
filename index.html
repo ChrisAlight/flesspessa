@@ -81,6 +81,7 @@
     <button onclick="startGame()">Start Game</button>
     <button onclick="addSuperHard()">Multi start no</button>
     <button>$10 show extra level</button>
+    <button id="resetButton" onclick="if (window.confirm('This will reset your progress. Are you sure you want to reset?')) { storage.reset(); window.location.reload(); }">reset</button>
     <span id="flagDragPlaceholder"></span>
     <div id="coinContainer">
         <div id="coinText">0</div>

@@ -94,6 +94,11 @@ export class Storage {
     getBackground(): string | null {
         return localStorage.getItem('background');
     }
+
+    reset(): void {
+        localStorage.clear();
+        this.init();
+    }
 }
 
 // Default export for compatibility with existing code that may import as default
