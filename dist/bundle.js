@@ -101,6 +101,10 @@ var Flesspessa = (() => {
     getBackground() {
       return localStorage.getItem("background");
     }
+    reset() {
+      localStorage.clear();
+      this.init();
+    }
   };
   var Storage_default = Storage;
 
