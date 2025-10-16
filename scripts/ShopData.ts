@@ -31,7 +31,7 @@ export const shopData = {
     ]
 };
 
+window.shopData = shopData;
+
 export type Background = typeof shopData.backgrounds[number];
 export type DifficultyItem = typeof shopData.difficulty[number];
-
-export default shopData;

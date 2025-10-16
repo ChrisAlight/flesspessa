@@ -7,10 +7,7 @@
     <link rel="manifest" href="manifest.json">
     <script src="dist/bundle.js"></script>
     <script>
-        let storage;
-
         function startGame() {
-            // const mode = document.getElementById('mode').getAttribute('value');
             const difficulty = document.getElementById('difficulty').value;
             storage.setDifficulty(difficulty);
             window.location.href = `game.html?difficulty=${difficulty}`;
@@ -31,9 +28,8 @@
                 }
             }
         }
+        
         window.onload = function () {
-            storage = new Storage();
-
             App.setUpPage(storage);
 
             addPurchasedDifficulties();

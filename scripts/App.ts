@@ -1,63 +1,11 @@
-import { shopData } from './shopData';
-import { Storage } from './Storage';
-
-type Country = { name: string; code: string };
-
-export const difficultyData: { [k: string]: { name: string; countries: Country[]; reward: number } } = {
-    easy: {
-        name: 'Easy',
-        countries: [
-            { name: 'USA', code: 'us' },
-            { name: 'Canada', code: 'ca' },
-            { name: 'China', code: 'cn' },
-            { name: 'Jamaica', code: 'jm' },
-            { name: 'UK', code: 'gb' },
-            { name: 'Ireland', code: 'ie' }
-        ],
-        reward: 3
-    },
-    normal: {
-        name: 'Normal',
-        countries: [
-            { name: 'Serbia', code: 'rs' },
-            { name: 'Sweden', code: 'se' },
-            { name: 'Philippines', code: 'ph' },
-            { name: 'Netherlands', code: 'nl' },
-            { name: 'Bahamas', code: 'bs' },
-            { name: 'Portugal', code: 'pt' }
-        ],
-        reward: 5
-    },
-    hard: {
-        name: 'Hard',
-        countries: [
-            { name: 'Ghana', code: 'gh' },
-            { name: 'Uganda', code: 'ug' },
-            { name: 'Kenya', code: 'ke' },
-            { name: 'Rwanda', code: 'rw' },
-            { name: 'Brunei', code: 'bn' },
-            { name: 'Mauritius', code: 'mu' }
-        ],
-        reward: 7
-    },
-    superHard: {
-        name: 'Super Hard!!!!!',
-        countries: [
-            { name: 'Monaco', code: 'mc' },
-            { name: 'Indonesia', code: 'id' },
-            { name: 'Poland', code: 'pl' },
-            { name: 'Chad', code: 'td' },
-            { name: 'Romania', code: 'ro' },
-            { name: 'Dominica', code: 'dm' }
-        ],
-        reward: 10
-    }
-};
+import { Country, difficultyData, EDifficulty } from './DiffucultyData';
+import { shopData } from './ShopData';
+import { AppStorage } from './Storage';
 
 export class App {
-    storage: Storage;
-    difficulty: string;
-    nextDifficulty?: string;
+    storage: AppStorage;
+    difficulty: EDifficulty;
+    nextDifficulty?: EDifficulty;
     countries: Country[];
     reward: number;
 
@@ -65,18 +13,18 @@ export class App {
     correctAnswer?: Country;
     correctAnswerCount = 0;
 
-    constructor(storage: Storage) {
+    constructor(storage: AppStorage) {
         this.storage = storage;
 
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        this.difficulty = urlParams.get('difficulty') || '';
+        this.difficulty = urlParams.get('difficulty') as EDifficulty ?? EDifficulty.Easy;
         if (!(this.difficulty in difficultyData) || !storage.hasPurchase(this.difficulty)) {
-            this.difficulty = 'easy';
+            this.difficulty = EDifficulty.Easy;
         }
         (document.getElementById('difficultyHeader')!).innerHTML = difficultyData[this.difficulty].name;
 
-        const nextDifficulty = Object.keys(difficultyData)[Object.keys(difficultyData).indexOf(this.difficulty) + 1];
+        const nextDifficulty = Object.keys(difficultyData)[Object.keys(difficultyData).indexOf(this.difficulty) + 1] as EDifficulty | undefined;
         if (nextDifficulty && storage.hasPurchase(nextDifficulty)) {
             this.nextDifficulty = nextDifficulty;
         }
@@ -88,10 +36,12 @@ export class App {
         this.setRandomFlag();
     }
 
-    static setUpPage(storage: Storage) {
+    static setUpPage(storage: AppStorage) {
         const backgroundName = storage.getBackground();
         const backgroundColor = shopData.backgrounds.find((bg) => bg.name === backgroundName)?.color || '#ffffff';
         document.body.style.setProperty('background-color', backgroundColor);
+
+        storage.updateCoinText();
     }
 
     generateAnswerButtons() {
@@ -159,4 +109,4 @@ export class App {
     }
 }
 
-export default App;
+window.App = App;

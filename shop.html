@@ -6,8 +6,6 @@
     <link rel="stylesheet" href="style.css" />
     <script src="dist/bundle.js"></script>
     <script>
-        let storage;
-
         function showCategory(category) {
             const shopContainer = document.getElementById('shopContainer');
             shopContainer.innerHTML = ''; // Clear previous content
@@ -59,8 +57,6 @@
             shopContainer.appendChild(categoryDiv);
         }
         window.onload = function () {
-            storage = new Storage();
-
             App.setUpPage(storage);
 
             const shopNavigation = document.getElementById('shopNavigation');
