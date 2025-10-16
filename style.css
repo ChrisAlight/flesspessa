@@ -8,6 +8,8 @@
 
 .body-centered {
     justify-items: center;
+    top:-50px;
+    position: relative;
 }
 
 select {
@@ -106,4 +108,18 @@ img#coin {
 .svgMap-map-wrapper .svgMap-map-controls-wrapper {
     right: 10px;
     left: initial;
+}
+
+#resetButton {
+    float: left;
+    width: 90px;
+    height: 90px;
+    background-image: url('assets/reset.png');
+    background-color: white;
+    background-position: center;
+    font-size: 12pt;
+    background-repeat: no-repeat;
+    position: fixed;
+    left: 17px;
+    bottom: 10px;
 }
