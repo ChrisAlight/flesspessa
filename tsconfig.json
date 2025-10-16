@@ -19,7 +19,10 @@
 		"resolveJsonModule": true,
 		"isolatedModules": false,
 		"noEmitOnError": false,
-		"downlevelIteration": true
+		"downlevelIteration": true,
+		"typeRoots": [
+			"types"
+		]
 	},
 	"include": [
 		"./scripts/**/*",

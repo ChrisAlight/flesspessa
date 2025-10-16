@@ -1,8 +1,6 @@
-export class Storage {
-    constructor() {
-        this.init();
-    }
+import { difficultyData, EDifficulty } from './DiffucultyData';
 
+export class AppStorage {
     init() {
         if (!localStorage.getItem('coins')) {
             localStorage.setItem('coins', '0');
@@ -12,9 +10,8 @@ export class Storage {
             this.addPurchase('white'); // Default background
         }
         if (!localStorage.getItem('difficulty')) {
-            localStorage.setItem('difficulty', 'easy');
+            localStorage.setItem('difficulty', EDifficulty.Easy);
         }
-        this.updateCoinText();
     }
 
     getCoins(): number {
@@ -72,12 +69,12 @@ export class Storage {
         }
     }
 
-    getDifficulty(): string {
-        return localStorage.getItem('difficulty') || 'easy';
+    getDifficulty(): EDifficulty {
+        return localStorage.getItem('difficulty') as EDifficulty || EDifficulty.Easy;
     }
 
-    setDifficulty(difficulty: string) {
-        const validDifficulties = ['easy', 'normal', 'hard', 'superHard'];
+    setDifficulty(difficulty: EDifficulty) {
+        const validDifficulties = Object.keys(difficultyData);
         if (!validDifficulties.includes(difficulty)) {
             throw new Error('Invalid difficulty');
         }
@@ -101,5 +98,5 @@ export class Storage {
     }
 }
 
-// Default export for compatibility with existing code that may import as default
-export default Storage;
+window.AppStorage = AppStorage;
+window.storage = new AppStorage();

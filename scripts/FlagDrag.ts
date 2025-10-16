@@ -355,4 +355,4 @@ export class FlagDrag {
     }
 }
 
-export default FlagDrag;
+window.FlagDrag = FlagDrag;

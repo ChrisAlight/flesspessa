@@ -4,6 +4,10 @@ var Flesspessa = (() => {
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -14,101 +18,79 @@ var Flesspessa = (() => {
   };
   var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  // scripts/entry.ts
-  var entry_exports = {};
+  // scripts/index.ts
+  var index_exports = {};
+  __export(index_exports, {
+    App: () => App,
+    AppStorage: () => AppStorage,
+    EDifficulty: () => EDifficulty,
+    FlagDrag: () => FlagDrag,
+    countryNames: () => countryNames,
+    difficultyData: () => difficultyData,
+    shopData: () => shopData
+  });
 
-  // scripts/Storage.ts
-  var Storage = class {
-    constructor() {
-      this.init();
-    }
-    init() {
-      if (!localStorage.getItem("coins")) {
-        localStorage.setItem("coins", "0");
-      }
-      if (!localStorage.getItem("purchases")) {
-        localStorage.setItem("purchases", "[]");
-        this.addPurchase("white");
-      }
-      if (!localStorage.getItem("difficulty")) {
-        localStorage.setItem("difficulty", "easy");
-      }
-      this.updateCoinText();
-    }
-    getCoins() {
-      return parseInt(localStorage.getItem("coins") || "0") || 0;
-    }
-    setCoins(amount) {
-      if (typeof amount !== "number" || amount < 0) {
-        throw new Error("Invalid coin amount");
-      }
-      localStorage.setItem("coins", amount.toString());
-      this.updateCoinText();
-    }
-    addCoins(amount) {
-      if (typeof amount !== "number" || amount < 0) {
-        throw new Error("Invalid coin amount");
-      }
-      const currentCoins = this.getCoins();
-      this.setCoins(currentCoins + amount);
-    }
-    spendCoins(amount) {
-      if (typeof amount !== "number" || amount < 0) {
-        throw new Error("Invalid coin amount");
-      }
-      const currentCoins = this.getCoins();
-      if (currentCoins < amount) {
-        throw new Error("Not enough coins");
-      }
-      this.setCoins(currentCoins - amount);
-    }
-    updateCoinText() {
-      const coinText = document.getElementById("coinText");
-      if (coinText) {
-        coinText.innerHTML = String(this.getCoins());
-      }
-    }
-    getPurchases() {
-      return JSON.parse(localStorage.getItem("purchases") || "[]") || [];
-    }
-    hasPurchase(itemId) {
-      const purchases = this.getPurchases();
-      return purchases.includes(itemId);
-    }
-    addPurchase(itemId) {
-      const purchases = this.getPurchases();
-      if (!purchases.includes(itemId)) {
-        purchases.push(itemId);
-        localStorage.setItem("purchases", JSON.stringify(purchases));
-      }
-    }
-    getDifficulty() {
-      return localStorage.getItem("difficulty") || "easy";
-    }
-    setDifficulty(difficulty) {
-      const validDifficulties = ["easy", "normal", "hard", "superHard"];
-      if (!validDifficulties.includes(difficulty)) {
-        throw new Error("Invalid difficulty");
-      }
-      localStorage.setItem("difficulty", difficulty);
-    }
-    setBackground(background) {
-      if (typeof background !== "string") {
-        throw new Error("Invalid background");
-      }
-      localStorage.setItem("background", background);
-    }
-    getBackground() {
-      return localStorage.getItem("background");
-    }
-    reset() {
-      localStorage.clear();
-      this.init();
+  // scripts/DiffucultyData.ts
+  var EDifficulty = /* @__PURE__ */ ((EDifficulty2) => {
+    EDifficulty2["Easy"] = "easy";
+    EDifficulty2["Normal"] = "normal";
+    EDifficulty2["Hard"] = "hard";
+    EDifficulty2["SuperHard"] = "superHard";
+    return EDifficulty2;
+  })(EDifficulty || {});
+  var difficultyData = {
+    ["easy" /* Easy */]: {
+      name: "Easy",
+      countries: [
+        { name: "USA", code: "us" },
+        { name: "Canada", code: "ca" },
+        { name: "China", code: "cn" },
+        { name: "Jamaica", code: "jm" },
+        { name: "UK", code: "gb" },
+        { name: "Ireland", code: "ie" }
+      ],
+      reward: 3
+    },
+    ["normal" /* Normal */]: {
+      name: "Normal",
+      countries: [
+        { name: "Serbia", code: "rs" },
+        { name: "Sweden", code: "se" },
+        { name: "Philippines", code: "ph" },
+        { name: "Netherlands", code: "nl" },
+        { name: "Bahamas", code: "bs" },
+        { name: "Portugal", code: "pt" }
+      ],
+      reward: 5
+    },
+    ["hard" /* Hard */]: {
+      name: "Hard",
+      countries: [
+        { name: "Ghana", code: "gh" },
+        { name: "Uganda", code: "ug" },
+        { name: "Kenya", code: "ke" },
+        { name: "Rwanda", code: "rw" },
+        { name: "Brunei", code: "bn" },
+        { name: "Mauritius", code: "mu" }
+      ],
+      reward: 7
+    },
+    ["superHard" /* SuperHard */]: {
+      name: "Super Hard!!!!!",
+      countries: [
+        { name: "Monaco", code: "mc" },
+        { name: "Indonesia", code: "id" },
+        { name: "Poland", code: "pl" },
+        { name: "Chad", code: "td" },
+        { name: "Romania", code: "ro" },
+        { name: "Dominica", code: "dm" }
+      ],
+      reward: 10
     }
   };
-  var Storage_default = Storage;
+  window.difficultyData = difficultyData;
 
-  // scripts/shopData.ts
+  // scripts/ShopData.ts
   var shopData = {
     backgrounds: [
       { name: "red", price: 50, color: "#ffaaaa" },
@@ -141,69 +123,20 @@ var Flesspessa = (() => {
       { name: "map", price: 1e3 }
     ]
   };
-  var shopData_default = shopData;
+  window.shopData = shopData;
 
   // scripts/App.ts
-  var difficultyData = {
-    easy: {
-      name: "Easy",
-      countries: [
-        { name: "USA", code: "us" },
-        { name: "Canada", code: "ca" },
-        { name: "China", code: "cn" },
-        { name: "Jamaica", code: "jm" },
-        { name: "UK", code: "gb" },
-        { name: "Ireland", code: "ie" }
-      ],
-      reward: 3
-    },
-    normal: {
-      name: "Normal",
-      countries: [
-        { name: "Serbia", code: "rs" },
-        { name: "Sweden", code: "se" },
-        { name: "Philippines", code: "ph" },
-        { name: "Netherlands", code: "nl" },
-        { name: "Bahamas", code: "bs" },
-        { name: "Portugal", code: "pt" }
-      ],
-      reward: 5
-    },
-    hard: {
-      name: "Hard",
-      countries: [
-        { name: "Ghana", code: "gh" },
-        { name: "Uganda", code: "ug" },
-        { name: "Kenya", code: "ke" },
-        { name: "Rwanda", code: "rw" },
-        { name: "Brunei", code: "bn" },
-        { name: "Mauritius", code: "mu" }
-      ],
-      reward: 7
-    },
-    superHard: {
-      name: "Super Hard!!!!!",
-      countries: [
-        { name: "Monaco", code: "mc" },
-        { name: "Indonesia", code: "id" },
-        { name: "Poland", code: "pl" },
-        { name: "Chad", code: "td" },
-        { name: "Romania", code: "ro" },
-        { name: "Dominica", code: "dm" }
-      ],
-      reward: 10
-    }
-  };
   var App = class {
     constructor(storage2) {
       this.hasAnswered = false;
       this.correctAnswerCount = 0;
+      var _a;
       this.storage = storage2;
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
-      this.difficulty = urlParams.get("difficulty") || "";
+      this.difficulty = (_a = urlParams.get("difficulty")) != null ? _a : "easy" /* Easy */;
       if (!(this.difficulty in difficultyData) || !storage2.hasPurchase(this.difficulty)) {
-        this.difficulty = "easy";
+        this.difficulty = "easy" /* Easy */;
       }
       document.getElementById("difficultyHeader").innerHTML = difficultyData[this.difficulty].name;
       const nextDifficulty = Object.keys(difficultyData)[Object.keys(difficultyData).indexOf(this.difficulty) + 1];
@@ -220,6 +153,7 @@ var Flesspessa = (() => {
       const backgroundName = storage2.getBackground();
       const backgroundColor = ((_a = shopData.backgrounds.find((bg) => bg.name === backgroundName)) == null ? void 0 : _a.color) || "#ffffff";
       document.body.style.setProperty("background-color", backgroundColor);
+      storage2.updateCoinText();
     }
     generateAnswerButtons() {
       const answerButtonContainer = document.getElementById("answerButtons");
@@ -277,7 +211,7 @@ var Flesspessa = (() => {
       }
     }
   };
-  var App_default = App;
+  window.App = App;
 
   // scripts/FlagDrag.ts
   var countryNames = {
@@ -618,14 +552,95 @@ var Flesspessa = (() => {
       }
     }
   };
-  var FlagDrag_default = FlagDrag;
+  window.FlagDrag = FlagDrag;
 
-  // scripts/entry.ts
-  window.Storage = Storage_default;
-  window.shopData = shopData_default;
-  window.App = App_default;
-  window.FlagDrag = FlagDrag_default;
-  window.difficultyData = difficultyData;
-  return __toCommonJS(entry_exports);
+  // scripts/Storage.ts
+  var AppStorage = class {
+    init() {
+      if (!localStorage.getItem("coins")) {
+        localStorage.setItem("coins", "0");
+      }
+      if (!localStorage.getItem("purchases")) {
+        localStorage.setItem("purchases", "[]");
+        this.addPurchase("white");
+      }
+      if (!localStorage.getItem("difficulty")) {
+        localStorage.setItem("difficulty", "easy" /* Easy */);
+      }
+    }
+    getCoins() {
+      return parseInt(localStorage.getItem("coins") || "0") || 0;
+    }
+    setCoins(amount) {
+      if (typeof amount !== "number" || amount < 0) {
+        throw new Error("Invalid coin amount");
+      }
+      localStorage.setItem("coins", amount.toString());
+      this.updateCoinText();
+    }
+    addCoins(amount) {
+      if (typeof amount !== "number" || amount < 0) {
+        throw new Error("Invalid coin amount");
+      }
+      const currentCoins = this.getCoins();
+      this.setCoins(currentCoins + amount);
+    }
+    spendCoins(amount) {
+      if (typeof amount !== "number" || amount < 0) {
+        throw new Error("Invalid coin amount");
+      }
+      const currentCoins = this.getCoins();
+      if (currentCoins < amount) {
+        throw new Error("Not enough coins");
+      }
+      this.setCoins(currentCoins - amount);
+    }
+    updateCoinText() {
+      const coinText = document.getElementById("coinText");
+      if (coinText) {
+        coinText.innerHTML = String(this.getCoins());
+      }
+    }
+    getPurchases() {
+      return JSON.parse(localStorage.getItem("purchases") || "[]") || [];
+    }
+    hasPurchase(itemId) {
+      const purchases = this.getPurchases();
+      return purchases.includes(itemId);
+    }
+    addPurchase(itemId) {
+      const purchases = this.getPurchases();
+      if (!purchases.includes(itemId)) {
+        purchases.push(itemId);
+        localStorage.setItem("purchases", JSON.stringify(purchases));
+      }
+    }
+    getDifficulty() {
+      return localStorage.getItem("difficulty") || "easy" /* Easy */;
+    }
+    setDifficulty(difficulty) {
+      const validDifficulties = Object.keys(difficultyData);
+      if (!validDifficulties.includes(difficulty)) {
+        throw new Error("Invalid difficulty");
+      }
+      localStorage.setItem("difficulty", difficulty);
+    }
+    setBackground(background) {
+      if (typeof background !== "string") {
+        throw new Error("Invalid background");
+      }
+      localStorage.setItem("background", background);
+    }
+    getBackground() {
+      return localStorage.getItem("background");
+    }
+    reset() {
+      localStorage.clear();
+      this.init();
+    }
+  };
+  window.AppStorage = AppStorage;
+  window.storage = new AppStorage();
+  return __toCommonJS(index_exports);
 })();
 //# sourceMappingURL=bundle.js.map
