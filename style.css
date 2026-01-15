@@ -1,14 +1,21 @@
 * {
     text-align: center;
+    -webkit-align-content: center;
     align-content: center;
+    -webkit-align-items: center;
     align-items: center;
+    -webkit-align-self: center;
     align-self: center;
+    -webkit-justify-content: center;
     justify-content: center;
 }
 
 .body-centered {
+    display: -ms-grid;
+    display: grid;
+    -webkit-justify-items: center;
     justify-items: center;
-    top:-50px;
+    top: 40px;
     position: relative;
 }
 
@@ -22,8 +29,9 @@ button {
     height: 100px;
     background-color: yellow;
     font-size: 20pt;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .gamePage button {
@@ -79,6 +87,7 @@ img#coin {
     position: fixed;
     right: 17px;
     bottom: 55px;
+    margin-bottom: 30px;
 }
 
 #mapButton {
@@ -98,10 +107,15 @@ img#coin {
 #svgMap,
 #svgMap * {
     text-align: initial !important;
+    -webkit-align-content: initial !important;
     align-content: initial !important;
+    -webkit-align-items: initial !important;
     align-items: initial !important;
+    -webkit-align-self: initial !important;
     align-self: initial !important;
+    -webkit-justify-content: initial !important;
     justify-content: initial !important;
+    -webkit-justify-items: initial !important;
     justify-items: initial !important;
 }
 
@@ -122,4 +136,17 @@ img#coin {
     position: fixed;
     left: 17px;
     bottom: 10px;
+}
+
+#answerButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0px;
+    margin-top: 40px;
+    max-height: 50vh;
+}
+
+#flagImage {
+    margin-bottom: -15px;
 }
