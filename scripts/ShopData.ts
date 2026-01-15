@@ -1,11 +1,12 @@
 export const shopData = {
     backgrounds: [
-        { name: 'red', price: 50, color: '#ffaaaa' },
-        { name: 'orange', price: 50, color: '#ff8e03ff' },
-        { name: 'yellow', price: 50, color: '#ffffaa' },
-        { name: 'green', price: 50, color: '#aaffaa' },
+        { name: 'red', price: 50, color: '#ff5757' },
+        { name: 'orange', price: 50, color: '#FFA500' },
+        { name: 'yellow', price: 50, color: '#ffff00' },
+        { name: 'lime', price: 50, color: '#00ff00' },
+        { name: 'green', price: 50, color: '#00c800' },
         { name: 'teal', price: 50, color: '#02ffccff' },
-        { name: 'blue', price: 50, color: '#5763ffff' },
+        { name: 'blue', price: 50, color: 'rgb(24, 39, 255)' },
         { name: 'purple', price: 50, color: '#ae5dffff' },
         { name: 'magenta', price: 50, color: '#ba00feff' },
         { name: 'pink', price: 50, color: '#ffb3d9ff' },
