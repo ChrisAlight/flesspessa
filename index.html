@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.json">
+    <style>
+        .scattered-flag {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
     <script src="dist/bundle.js"></script>
     <script>
         function startGame() {
@@ -64,9 +71,10 @@
 </head>
 
 <body class="body-centered">
-    <h1>Flesspessa</h1>
-    <img src="greenYellowFlag.png" alt="">
-    <img src="orangeYellowFlag.png" alt="">
+    <div class="title-container">
+        <h1>Flesspessa</h1>
+        <div class="tooltip">Fless-pess</div>
+    </div>
     <!--
         <select id="mode">
             <option value="single">Single Player</option>
@@ -76,7 +84,21 @@
     <select id="difficulty">
         <option value="easy">Easy</option>
     </select>
-    <button id="mapButton" onclick="window.location.href='map.html'">Map</button>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <button id="mapButton" onclick="window.location.href='map.html'">Map</button>
+        <img id="medalImg" style="width: 50px; height: 50px;">
+    </div>
+    <script>
+        if (localStorage.getItem('flesspessaMasterAchieved')) {
+            document.getElementById('medalImg').src = 'assets/medals/masterMedal.png';
+            document.getElementById('medalImg').alt = 'Master Medal';
+            document.getElementById('medalImg').title = 'Master Medal';
+        } else {
+            document.getElementById('medalImg').src = 'assets/medals/flesspessaMedal.png';
+            document.getElementById('medalImg').alt = 'Flesspessa Medal';
+            document.getElementById('medalImg').title = 'Flesspessa Medal';
+        }
+    </script>
     <button onclick="startGame()">Start Game</button>
     <button onclick="addSuperHard()">Multi start no</button>
     <button>$10 show extra level</button>
@@ -87,6 +109,11 @@
         <img id="coin" width="75" src="assets/coin.png">
         <button id="shopImageButton" onclick="window.location.href='shop.html'">Go to shop</button>
     </div>
+    
+    <img class="scattered-flag" src="assets/non-existantFlags/greenYellowFlag.png" style="width: 150px; top: 10%; left: 5%;">
+    <img class="scattered-flag" src="assets/non-existantFlags/yellowRedFlag.png" style="width: 140px; bottom: 15%; left: 10%; transform: rotate(-10deg);">
+    <img class="scattered-flag" src="assets/non-existantFlags/yellowWhiteFlag.png" style="width: 130px; bottom: 20%; right: 5%; transform: rotate(25deg);">
+    <img class="scattered-flag" src="assets/non-existantFlags/redGreenFlag.png" style="width: 125px; top: 50%; right: 12%; transform: rotate(-15deg);">
 </body>
 
 </html>

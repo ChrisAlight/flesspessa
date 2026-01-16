@@ -4,6 +4,13 @@
     <title>Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
+    <style>
+        .scattered-flag {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
     <script src="dist/bundle.js"></script>
     <script>
         function showCategory(category) {
@@ -81,6 +88,11 @@
         <div id="coinText">0</div>
         <img id="coin" width="75" src="assets/coin.png">
     </div>
+    
+    <img class="scattered-flag" src="assets/non-existantFlags/greenYellowFlag.png" style="width: 150px; top: 10%; left: 5%;">
+    <img class="scattered-flag" src="assets/non-existantFlags/redGreenFlag.png" style="width: 140px; bottom: 15%; left: 10%; transform: rotate(-10deg);">
+    <img class="scattered-flag" src="assets/non-existantFlags/yellowRedFlag.png" style="width: 130px; bottom: 20%; right: 5%; transform: rotate(25deg);">
+    <img class="scattered-flag" src="assets/non-existantFlags/yellowWhiteFlag.png" style="width: 125px; top: 50%; right: 12%; transform: rotate(-15deg);">
 </body>
 
 </html>
