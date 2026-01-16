@@ -6,6 +6,7 @@ export const shopData = {
         { name: 'lime', price: 50, color: '#00ff00' },
         { name: 'green', price: 50, color: '#00c800' },
         { name: 'teal', price: 50, color: '#02ffccff' },
+        { name: 'flesspessa', price: 50, color: '#1976d2' },
         { name: 'blue', price: 50, color: 'rgb(24, 39, 255)' },
         { name: 'purple', price: 50, color: '#ae5dffff' },
         { name: 'magenta', price: 50, color: '#ba00feff' },
