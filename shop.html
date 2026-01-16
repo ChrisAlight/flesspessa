@@ -51,7 +51,9 @@
                     } else if (storage.getCoins() >= item.price) {
                         storage.spendCoins(item.price);
                         storage.addPurchase(item.name);
+                        const scrollPosition = window.scrollY;
                         showCategory(category); // Refresh the category view
+                        window.scrollTo(0, scrollPosition);
                     } else {
                         alert('Not enough coins!');
                     }
