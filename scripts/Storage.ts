@@ -154,7 +154,7 @@ export class AppStorage {
         title.style.color = '#1976d2';
 
         const message = document.createElement('p');
-        message.innerText = 'Your account has turned into a master account! You are truly a Flesspessa master! But your journy doesn\'t end here...';
+        message.innerText = 'Your account has turned into a master account! You are truly a Flesspessa master! But your journey doesn\'t end here...';
         message.style.fontSize = '18px';
         message.style.marginBottom = '30px';
 
